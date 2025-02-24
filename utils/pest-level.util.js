@@ -221,8 +221,18 @@ export const getWarningLevel = (plant, pest) => {
 };
 
 const executePestCommand = async (location, date, age) => {
+    // let varCommand =
+    //     "cd ./utils/myFAWPredict && python3 main.py" +
+    //     " --mode lookup" +
+    //     " --location " +
+    //     location +
+    //     " --date " +
+    //     date +
+    //     " --age " +
+    //     age;
+
     let varCommand =
-        "cd ./app/services/FAWPredict && python3 FAWPredict.py" +
+        "cd ./utils/FAWPredict && python3 FAWPredict.py" +
         " --mode lookup" +
         " --location " +
         location +

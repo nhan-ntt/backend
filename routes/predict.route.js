@@ -1,14 +1,13 @@
 import { Router } from "express";
 import success from "../utils/response-utils.js";
 import CommonError from "../utils/error.js";
-// import { CheckAuthTest } from "../../middlewares/auth.mid";
 import PredictService from "../services/predict.service.js";
 import { authenticateToken } from "../middlewares/auth.middleware.js";
 import { hasRole } from "../middlewares/role.middleware.js";
 
 const api = Router();
 
-api.get("/get-predict", authenticateToken, hasRole(["expert", "manager"]), async (req, res) => {
+api.get("/predict/get-predict", authenticateToken, hasRole(["expert", "manager"]), async (req, res) => {
         try {
             const pestLevels = await PredictService.getPredictByQuery({
                 ...req.body.data,
