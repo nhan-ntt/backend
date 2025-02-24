@@ -1,0 +1,10 @@
+todo:
+- viết api cho pest-level
+- viết api cho predict (ddax copy, chua test)
+- viết api cho report
+- viết api cho plan
+- xem những hàm nào trong frontend thừa thì xóa đi (xem trong auth.service.tsx, nó sẽ gọi một số api thừa, chỉ declare chứ không dùng)
+- dm hoàn thiện hộ tao cái login, vào được đi đã
+- vào được admin, expert... bla
+- thêm giao diện đăng ký? không thì hiện tại cứ từ từ đi
+- auth cần dùng /auth/credential
