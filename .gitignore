@@ -1,2 +1,5 @@
 /node_modules
 .env
+/utils/riceLeaffolder/.idea
+/utils/riceLeaffolder/.venv
+/utils/riceLeaffolder/__pycache__
