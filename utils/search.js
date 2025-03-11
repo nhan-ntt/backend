@@ -113,7 +113,7 @@ export const customQuery = (queryProps, isPredict = false) => {
             if (
                 queryProps[key] &&
                 key !== "role" &&
-                key !== "fullName" &&
+                key !== "name" &&
                 key !== "pestLevel" &&
                 key !== "pestLevelId"
             ) {

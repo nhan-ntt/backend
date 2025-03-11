@@ -139,7 +139,7 @@ const getReportById = async ({ reportId }) => {
 };
 const getReports = async ({ paginationProps, queryProps }) => {
     const paginationOption = parsePaginationOption(paginationProps);
-    let queryPropsFormat = customQuery(queryProps);
+    let queryPropsFormat = customQuery(queryProps, true);
     const defaultSortField = "createdAt";
     const sortOption = {
         [paginationProps.sortBy
@@ -166,10 +166,10 @@ const getReports = async ({ paginationProps, queryProps }) => {
     if (reports && reports.length > 0) {
         await Report.populate(reports, {
             path: "user",
-            select: { fullName: 1 },
+            select: { name: 1 },
         });
         let count = await Report.aggregate([...aggr, { $count: "id" }]);
-        if (queryProps.fullName) {
+        if (queryProps.name) {
             let results = [];
             let userIds = reports.map((el) => el.user._id.toString());
             let users = await User.find({

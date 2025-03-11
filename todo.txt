@@ -1,10 +1,14 @@
-todo:
-- viết api cho pest-level
-- viết api cho predict (ddax copy, chua test)
-- viết api cho report
-- viết api cho plan
-- xem những hàm nào trong frontend thừa thì xóa đi (xem trong auth.service.tsx, nó sẽ gọi một số api thừa, chỉ declare chứ không dùng)
-- dm hoàn thiện hộ tao cái login, vào được đi đã
-- vào được admin, expert... bla
-- thêm giao diện đăng ký? không thì hiện tại cứ từ từ đi
-- auth cần dùng /auth/credential
+todo: 
+
+<configure userID -> object /predict>
+- viết api cho report (cant add)
+- viết api cho plan (cant add)
+
+- them giao dien chon sau (them con sau)
+- doc hieu cac service, core la tu python, xem no implement vao predict the nao
+
+- sau duc than lua hai cham (theo bai giang, tim look up)
+- tinh thanh pho la sort theo abc
+- hoan thien di, k dc co bug nua nha
+
+

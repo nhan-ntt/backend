@@ -2,32 +2,55 @@ import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 import { JWT_SECRET } from "../config/environments.js";
 
-const authenticateToken = async (req, res, next) => {
-    const authHeader = req.header("Authorization");
-    if (!authHeader) {
-        return res.status(401).json({ message: "Access Denied. No Token Provided." });
-    }
-    
-    const headerParts = authHeader.split(' ');
-    if (headerParts.length !== 2) {
-        return res.status(400).json({ success: false, message: 'Invalid Authorization header' });
-    }
-
-    const token = headerParts[1];
-
+export const authenticateToken = async (req, res, next) => {
     try {
-        const decoded = jwt.verify(token, JWT_SECRET);
-        const user = await User.findById(decoded.id);
+        const authHeader = req.headers.authorization;
+        const token = authHeader && authHeader.split(" ")[1];
 
-        if (!user) {
-            return res.status(401).json({ message: "Invalid Token" });
+        if (!token) {
+            return res.status(401).json({ 
+                success: false,
+                message: "No token provided" 
+            });
         }
 
-        req.user = user;
-        next();
+        jwt.verify(token, JWT_SECRET, async (err, decoded) => {
+            if (err) {
+                return res.status(401).json({ 
+                    success: false, 
+                    message: "Unauthorized" 
+                });
+            }
+
+            try {
+                // Find the user and populate the role field
+                const user = await User.findById(decoded.id).populate("role");
+                
+                if (!user) {
+                    return res.status(404).json({ 
+                        success: false, 
+                        message: "User not found" 
+                    });
+                }
+                
+                // Set both user and userInfo to maintain compatibility
+                req.user = user;
+                req.userInfo = user;  // This ensures req.userInfo is defined
+                
+                next();
+            } catch (error) {
+                console.error("Error in auth middleware:", error);
+                return res.status(500).json({ 
+                    success: false, 
+                    message: "Server error" 
+                });
+            }
+        });
     } catch (error) {
-        res.status(403).json({ message: "Invalid Token" });
+        console.error("Authentication error:", error);
+        return res.status(500).json({ 
+            success: false, 
+            message: "Server error" 
+        });
     }
 };
-
-export { authenticateToken};

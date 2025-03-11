@@ -1,12 +1,13 @@
 import { Router } from "express";
-import success from "../utils/response-utils.js";
 import CommonError from "../utils/error.js";
 import ReportService from "../services/report.service.js";
 import { authenticateToken } from "../middlewares/auth.middleware.js";
 import { hasRole } from "../middlewares/role.middleware.js";
+import responseUtils from "../utils/response-utils.js";
+const { success } = responseUtils;
+
 
 const api = Router();
-
 api.post("/report", authenticateToken, async (req, res) => {
     try {
         if (

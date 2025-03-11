@@ -1,22 +1,45 @@
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
-import roleModel from "../models/role.model.js";
+import Role from "../models/role.model.js";
 import { JWT_SECRET, JWT_EXPIRATION_TIME } from "../config/environments.js";
 
 const register = async (req, res) => {
     // Save User to Database
     try {
-        let role = req.body.role;
-        if (role === "admin") {
+        const existingUser = await User.findOne({ email: req.body.email });
+        if (existingUser) {
+            return res.status(400).send("User already exists");
+        }
+
+        //cant register as admin
+        if (req.body.role === "admin") {
             return res.status(400).send("You are not allowed to register as admin");
         }
+
+        //query by name
+        const roleObject = await Role.findOne({role: req.body.role});
+
+
         const user = await User.create({
-            name: req.body.name,
+            fullName: req.body.fullName,
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password, 8),
-            role: req.body.role,
+            role: roleObject,
+            phone: req.body.phone || "",
+            isActive: req.body.isActive || false,
+            isBanned: false,
+            state: req.body.state || "",
+            district: req.body.district || "",
+            city: req.body.city || "",
+            address: req.body.address || ""
         });
+
+        const populatedUser = await User.findById(user._id).populate('role');
+        const userResponse = populatedUser.toObject();
+        delete userResponse.password;
+
+
         return res.status(201).json(user);
     } catch (error) {
         return res.status(500).send({ message: error.message });
@@ -58,23 +81,13 @@ const login = async (req, res) => {
             id: user.id,
             name: user.name,
             email: user.email,
-            roles: user.role,
+            role: user.role,
             accessToken: token,
+            expiresIn: JWT_EXPIRATION_TIME,
         });
     } catch (error) {
         return res.status(500).send({ message: error.message });
     }
 };
 
-const logout = async (req, res) => {
-    try {
-        req.session = null;
-        return res.status(200).send({
-            message: "You've been signed out!",
-        });
-    } catch (err) {
-        return res.status(500).send({ message: err.message });
-    }
-};
-
-export default { login, register, logout };
+export default { login, register };

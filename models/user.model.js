@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
+import { Schema } from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    name: {
+    fullName: {
         type: String,
         required: true,
         trim: true,
@@ -15,10 +16,34 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    role: {
+    phone: {
         type: String,
-        enum: ["admin", "mobile user", "expert", "manager", "field expert"],
+        sparse: true
+    },
+    role: {
+        type: Schema.Types.ObjectId,
+        ref: "Role",
         required: true,
+    },
+    isActive: {
+        type: Boolean,
+        default: false,
+    },
+    isBanned: {
+        type: Boolean,
+        default: false,
+    },
+    state: {
+        type: String,
+    },
+    district: {
+        type: String,
+    },
+    city: {
+        type: String,
+    },
+    address: {
+        type: String,
     },
 }, {
     timestamps: true // Move this to the schema options

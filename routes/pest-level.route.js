@@ -23,19 +23,22 @@ const api = Router();
 //         return CommonError(req, err, res);
 //     }
 // });
-api.get("/pestLevel/get-pest-level", authenticateToken, hasRole(["admin", "expert", "manager", "field expert"]), async (req, res) => {
+api.post("/pestLevel/get-pest-level", authenticateToken, async (req, res) => {
     try {
+        if (req.userInfo.role.role != "user") {
             const pestLevels = await PestLevelService.getAllPestLevel({
                 ...req.body.data,
             });
             return res.json(success(pestLevels));
-
+        } else {
+            throw new Error("USER.PERMISSION_DENIED");
+        }
     } catch (err) {
         console.log(err);
         return CommonError(req, err, res);
     }
 });
-api.post("/pestLevel/update-pest-level", authenticateToken, hasRole(["admin"]), async (req, res) => {
+api.post("/pestLevel/update-pest-level", authenticateToken, async (req, res) => {
     try {
         if (req.userInfo.role.role == "admin") {
             const pestLevels = await PestLevelService.updateUrlPestLevel({

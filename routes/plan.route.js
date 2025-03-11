@@ -7,70 +7,70 @@ import { hasRole } from "../middlewares/role.middleware.js";
 
 const api = Router();
 
-// use hasRole(["user"]) middleware to check if the user has the role of "user"
-api.get("/plan", authenticateToken, hasRole(["user"]), async (req, res) => {
+api.post("/plan", authenticateToken, async (req, res) => {
     try {
-        const plan = await PlanService.createPlan({
-            ...req.body.data,
-            userId: req.userInfo._id,
-        });
-        return res.json(success(plan));
+        if (req.userInfo.role.role == "user") {
+            const plan = await PlanService.createPlan({
+                ...req.body.data,
+                userId: req.userInfo._id,
+            });
+            return res.json(success(plan));
+        } else {
+            throw new Error("USER.PERMISSION_DENIED");
+        }
+    } catch (error) {
+        console.log("error", error);
+        return CommonError(req, error, res);
+    }
+});
+api.post("/plan/update-plan", authenticateToken, async (req, res) => {
+    try {
+        if (req.userInfo.role.role == "user") {
+            const plan = await PlanService.updatePlan({
+                ...req.body.data,
+                userId: req.userInfo._id,
+            });
+            return res.json(success(plan));
+        } else {
+            throw new Error("USER.PERMISSION_DENIED");
+        }
+    } catch (error) {
+        console.log("error", error);
+        return CommonError(req, error, res);
+    }
+});
+api.post("/plan/remove-plan", authenticateToken, async (req, res) => {
+    try {
+        if (req.userInfo.role.role == "user") {
+            const plan = await PlanService.removePlan({
+                ...req.body.data,
+                userId: req.userInfo._id,
+            });
+            return res.json(success(plan));
+        } else {
+            throw new Error("USER.PERMISSION_DENIED");
+        }
+    } catch (error) {
+        console.log("error", error);
+        return CommonError(req, error, res);
+    }
+});
+api.post("/plan/get-plan", authenticateToken, async (req, res) => {
+    try {
+        if (req.userInfo.role.role == "user") {
+            const plan = await PlanService.getPlan({
+                ...req.body.data,
+                userId: req.userInfo._id,
+            });
+            return res.json(success(plan));
+        } else {
+            throw new Error("USER.PERMISSION_DENIED");
+        }
     } catch (error) {
         console.log("error", error);
         return CommonError(req, error, res);
     }
 });
 
-api.post(
-    "/plan/update-plan",
-    authenticateToken,
-    hasRole(["user"]),
-    async (req, res) => {
-        try {
-            const plan = await PlanService.updatePlan({
-                ...req.body.data,
-                userId: req.userInfo._id,
-            });
-            return res.json(success(plan));
-        } catch (error) {
-            console.log("error", error);
-            return CommonError(req, error, res);
-        }
-    }
-);
-api.post(
-    "/plan/remove-plan",
-    authenticateToken,
-    hasRole(["user"]),
-    async (req, res) => {
-        try {
-            const plan = await PlanService.removePlan({
-                ...req.body.data,
-                userId: req.userInfo._id,
-            });
-            return res.json(success(plan));
-        } catch (error) {
-            console.log("error", error);
-            return CommonError(req, error, res);
-        }
-    }
-);
-api.post(
-    "/plan/get-plan",
-    authenticateToken,
-    hasRole(["user"]),
-    async (req, res) => {
-        try {
-            const plan = await PlanService.getPlan({
-                ...req.body.data,
-                userId: req.userInfo._id,
-            });
-            return res.json(success(plan));
-        } catch (error) {
-            console.log("error", error);
-            return CommonError(req, error, res);
-        }
-    }
-);
 
 export default api;

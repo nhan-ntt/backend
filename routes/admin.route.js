@@ -5,10 +5,14 @@ import { hasRole } from "../middlewares/role.middleware.js";
 
 const router = express.Router();
 
-router.get("/users", authenticateToken, hasRole(['admin']), async (req, res) => {
+router.post("/web-app/get-user", authenticateToken, hasRole(['admin']), async (req, res) => {
 // router.get("/users", async (req, res) => {
     try {
-        const users = await adminService.getAllUsers();
+        const { paginationProps, queryProps } = req.body;
+        const users = await adminService.getAllUsers({ 
+            paginationProps: paginationProps || {}, 
+            queryProps: queryProps || {} 
+        });
         res.json(users);
     } catch (error) {
         res.status(500).json({ message: error.message });

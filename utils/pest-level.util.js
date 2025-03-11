@@ -232,7 +232,7 @@ const executePestCommand = async (location, date, age) => {
     //     age;
 
     let varCommand =
-        "cd ./utils/FAWPredict && python3 FAWPredict.py" +
+        "cd ./utils/riceLeaffolder && python3 main.py" +
         " --mode lookup" +
         " --location " +
         location +

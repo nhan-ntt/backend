@@ -5,7 +5,7 @@ const ReportSchema = new Schema(
     {
         user: {
             type: Schema.Types.ObjectId,
-            ref: "UserTest",
+            ref: "User",
             require: true,
         },
         state: {

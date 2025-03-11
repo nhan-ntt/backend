@@ -1,0 +1,83 @@
+### register
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "John Smith",
+  "email": "abcd@gmail.com",
+  "password": "19112004",
+  "role": "mobile user"
+}
+
+
+### get name by role
+POST http://localhost:3000/api/role/initialize
+
+{
+    "role": "manager"
+}
+
+
+
+### Step 1: Login to get token
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "managernhan@gmail.com",
+    "password": "19112004"
+}
+
+### add predict
+POST http://localhost:3000/api/predict-by-pass
+Content-Type: application/json
+
+{
+    "key": "this is password",
+  "state": "Tỉnh Lào Cai",
+  "city": "Thành phố Lào Cai",
+  "district": "Phường Duyên Hải",
+  "timeStart": "2025-03-09T17:00:00.000Z"
+}
+
+### Step 2: Use the token to access admin/users
+GET http://localhost:3000/api/admin/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3Y2YzYmM4YWM0ZDQzZGY2YWM2NTA5MSIsImlhdCI6MTc0MTYzNjUyNywiZXhwIjoxNzQxNjM2NjEzfQ.uThlPv8qNlR_yl9xXWJXvuiWYrY-y6xwso3TBeQ6Ar4
+
+{
+    # {sortBy: "", sortType: "desc", page: 1, limit: 5}
+    "paginationProps": {
+        "page": 1,
+        "limit": 10,
+        "sortBy": "",
+        "sortType": "desc"
+    },
+    "queryProps": {}
+}
+
+
+### Step 3: Use the token to access admin/users
+POST http://localhost:3000/api/user/get-address-info
+Content-Type: application/json
+
+{ 
+    "type": "district", 
+    "parentCode": "180"
+}
+
+
+### get predict
+POST http://localhost:3000/api/predict/get-predict
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDAwMzkzNWM3NjA3Yjc3MzU2MzcyYiIsImlhdCI6MTc0MTY4NjkxNywiZXhwIjoxNzQxNjg3MDAzfQ._EEWG0S41F1KKATGOzU-taVFzomCVGAr3LxfeBzsS3Q
+
+{
+    "paginationProps": {
+        "page": 1,
+        "limit": 10,
+        "sortBy": "",
+        "sortType": "desc"
+    },
+    "queryProps": {}
+}

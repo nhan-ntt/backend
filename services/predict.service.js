@@ -12,67 +12,61 @@ import { customQuery, parsePaginationOption } from "../utils/search.js";
 
 import mongoose from "mongoose";
 
-const getPredictByQuery = async ({ paginationProps, queryProps }) => {
-    const paginationOption = parsePaginationOption(paginationProps);
-    let queryPropsFormat = customQuery(queryProps, true);
-    const defaultSortField = "createdAt";
-    const sortOption = {
-        [paginationProps.sortBy
-            ? paginationProps.sortBy === ""
-                ? defaultSortField
-                : paginationProps.sortBy
-            : defaultSortField]: paginationProps.sortType === "asc" ? 1 : -1,
-    };
-    const { page, limit } = paginationOption;
-    const skipOptions = limit * (page - 1);
-    let aggr = [...queryPropsFormat];
-    let currentPage = [
-        {
-            $skip: skipOptions,
-        },
-        {
-            $limit: limit,
-        },
-        {
-            $sort: sortOption,
-        },
-    ];
-    if (queryProps.pestLevelId) {
-        aggr.unshift({
-            $match: {
-                currentPestLevel: new mongoose.Types.ObjectId(
-                    queryProps.pestLevelId
-                ),
-            },
-        });
-    }
-    console.log("aggr", aggr);
-    let predicts = await Predict.aggregate([...aggr, ...currentPage]);
-    if (predicts && predicts?.length > 0) {
-        await Predict.populate(predicts, {
-            path: "currentPestLevel",
-        });
-        let count = await Predict.aggregate([...aggr, { $count: "id" }]);
-        let formatPredicts = predicts.map((predict) => {
-            return {
-                ...JSON.parse(JSON.stringify(predict)),
-                temperature: "22 C",
-                humidity: "70%",
-                rainfall: "1.9 mm",
-            };
-        });
+// In your getPredictByQuery function, add null checking
+const getPredictByQuery = async (queryParams = {}) => {
+    try {
+        console.log("Predict query params:", queryParams);
+        
+        // Extract and validate pagination parameters
+        const { paginationProps = {}, queryProps = {} } = queryParams;
+        
+        const paginationOption = parsePaginationOption(paginationProps);
+        const { page = 1, limit = 10 } = paginationOption;
+        
+        // Set up sorting
+        const defaultSortField = "createdAt";
+        const sortField = paginationProps?.sortBy || defaultSortField;
+        const sortDirection = paginationProps?.sortType === "asc" ? 1 : -1;
+        const sortOption = { [sortField]: sortDirection };
+        
+        // Calculate skip for pagination
+        const skipOptions = (page - 1) * limit;
+        
+        // Build the query
+        let query = {};
+        
+        // Add location filters if provided
+        if (queryProps.state) query.state = queryProps.state;
+        if (queryProps.city) query.city = queryProps.city;
+        if (queryProps.district) query.district = queryProps.district;
+        
+        // Add isFinish filter if provided, with safe default
+        if (queryProps.isFinish !== undefined) {
+            query.isFinish = queryProps.isFinish;
+        }
+        
+        console.log("Final query:", query);
+        
+        // Execute the query with pagination
+        const predictions = await Predict.find(query)
+            .sort(sortOption)
+            .skip(skipOptions)
+            .limit(limit)
+            .populate("pestLevel")
+            .populate("user", "fullName email");
+            
+        // Get total count for pagination
+        const total = await Predict.countDocuments(query);
+        
         return {
-            data: formatPredicts,
-            total: count[0].id,
+            data: predictions,
+            total: total
         };
-    } else {
-        return {
-            data: [],
-            total: 0,
-        };
+    } catch (error) {
+        console.error("Error in getPredictByQuery:", error);
+        throw error;
     }
 };
-
 
 const getPredict = async (data) => {
     if (data.state && data.city && data.district) {
@@ -114,9 +108,9 @@ const removePredict = async (predict) => {
     }
 };
 const createPredict = async (predict) => {
-    let { state, city, district, timeStart, pestLevelId, userId, lastTimeEnd } =
+    let { state, city, district, timeStart, pestLevelId, lastTimeEnd } =
         predict;
-    if (state && city && district && timeStart && userId) {
+    if (state && city && district && timeStart) {
         let predictDb = await Predict.findOne({
             state: state,
             city: city,
@@ -162,7 +156,7 @@ const createPredict = async (predict) => {
             let newPredict = new Predict({
                 ...predict,
                 lastPestLevel: pestLevelId ? pestLevelId : null,
-                user: userId,
+                user: user,
                 lastTimeEnd: lastTimeEnd ? new Date(lastTimeEnd) : null,
                 timeStart: startDate,
                 timeEnd: calculateEndTimeSeason(startDate),
@@ -178,7 +172,7 @@ const createPredict = async (predict) => {
             return sPredict;
         }
     } else {
-        throw new Error("PREDICT.POST.INVALID_PARAMS");
+        throw new Error("PREDICT.POST.INVALID_PARAMSss");
     }
 };
 const endPredict = async (predict) => {
