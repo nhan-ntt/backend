@@ -20,6 +20,7 @@ const createPlan = async (plan) => {
         throw new Error("PLAN.POST.INVALID_PARAMS");
     }
 };
+
 const getPlan = async (plan) => {
     let { userId } = plan;
     if (userId) {

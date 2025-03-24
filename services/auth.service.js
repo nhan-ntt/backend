@@ -9,23 +9,27 @@ const register = async (req, res) => {
     try {
         const existingUser = await User.findOne({ email: req.body.email });
         if (existingUser) {
-            return res.status(400).send("User already exists");
+            return res.status(400).json({ message: "User already exists" });
         }
 
-        //cant register as admin
+        // Can't register as admin
         if (req.body.role === "admin") {
-            return res.status(400).send("You are not allowed to register as admin");
+            return res.status(403).json({ message: "You are not allowed to register as admin" });
         }
 
-        //query by name
-        const roleObject = await Role.findOne({role: req.body.role});
+        // Find role by name
+        const roleObject = await Role.findOne({ role: req.body.role });
+        
+        if (!roleObject) {
+            return res.status(400).json({ message: `Role '${req.body.role}' not found` });
+        }
 
-
+        // Create user with role ObjectId
         const user = await User.create({
             fullName: req.body.fullName,
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password, 8),
-            role: roleObject,
+            role: roleObject._id, // Store only the ObjectId
             phone: req.body.phone || "",
             isActive: req.body.isActive || false,
             isBanned: false,
@@ -35,14 +39,18 @@ const register = async (req, res) => {
             address: req.body.address || ""
         });
 
+        // Populate the role for response
         const populatedUser = await User.findById(user._id).populate('role');
+        
+        // Convert to object to remove password
         const userResponse = populatedUser.toObject();
         delete userResponse.password;
 
-
-        return res.status(201).json(user);
+        // Return the user with populated role
+        return res.status(201).json(userResponse);
     } catch (error) {
-        return res.status(500).send({ message: error.message });
+        console.error("Registration error:", error);
+        return res.status(500).json({ message: error.message });
     }
 };
 
@@ -79,7 +87,7 @@ const login = async (req, res) => {
 
         return res.status(200).send({
             id: user.id,
-            name: user.name,
+            fullName: user.fullName,
             email: user.email,
             role: user.role,
             accessToken: token,

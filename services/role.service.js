@@ -61,6 +61,7 @@ const getNameByRole = async (role) => {
 }
 
 export default {
+    getRoles,
     getAllRoles,
     createDefaultRoles,
     getNameByRole

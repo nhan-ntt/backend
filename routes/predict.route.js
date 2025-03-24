@@ -101,7 +101,7 @@ api.post("/predict", authenticateToken, async (req, res) => {
             req.userInfo.role.role == "manager"
         ) {
             const predict = await PredictService.createPredict({
-                ...req.body.data,
+                ...req.body,
                 userId: req.userInfo._id.toString(),
             });
             return res.json(success(predict));

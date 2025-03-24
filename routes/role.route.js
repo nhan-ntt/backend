@@ -1,9 +1,9 @@
 import express from "express";
 import roleService from "../services/role.service.js";
+import { authenticateToken } from "../middlewares/auth.middleware.js";
+import CommonError from "../utils/error.js";
 import responseUtils from "../utils/response-utils.js";
 const { success } = responseUtils;
-import { authenticateToken } from "../middlewares/auth.middleware.js";
-
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -27,7 +27,7 @@ router.post("/initialize", async (req, res) => {
 router.post("/get-roles", authenticateToken, async (req, res) => {
     try {
         if (req.userInfo.role.role == "admin") {
-            const roles = await RoleService.getRoles();
+            const roles = await roleService.getRoles();
             return res.json(success(roles));
         } else {
             throw new Error("USER.PERMISSION_DENIED");

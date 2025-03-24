@@ -1,12 +1,25 @@
+### create admin
+POST http://localhost:3000/api/admin/create-account-admin
+Content-Type: application/json
+
+{
+  "key": "this is key to create admin",
+  "fullName": "Nhan Admin",
+  "email": "admin@gmail.com",
+  "password": "19112004",
+  "role": "admin"
+}
+
+
 ### register
 POST http://localhost:3000/api/auth/register
 Content-Type: application/json
 
 {
   "fullName": "John Smith",
-  "email": "abcd@gmail.com",
+  "email": "manager1@gmail.com",
   "password": "19112004",
-  "role": "mobile user"
+  "role": "manager"
 }
 
 
@@ -19,13 +32,96 @@ POST http://localhost:3000/api/role/initialize
 
 
 
+### GET USER
+POST http://localhost:3000/api/admin/get-user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTAzMjZlNDEwZTI3ZGNlYmYyZDQ1ZiIsImlhdCI6MTc0Mjc1OTE2NywiZXhwIjoxNzQyNzU5MjUzfQ._z6bsvBFMgc2G87MwsEj6DRWfhx8qZzAZE1tHH330GU
+
+{
+    "queryProps": {
+        "role": "",
+        "fullName": "John Smith",
+        "state": ""
+    },
+    "paginationProps": {
+        "sortBy": "",
+        "sortType": "desc",
+        "page": 1,
+        "limit": 5
+    }
+}
+
+
+
+
+
 ### Step 1: Login to get token
 POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "managernhan@gmail.com",
+    "email": "admin@gmail.com",
     "password": "19112004"
+}
+
+
+### UPDATE USER
+POST http://localhost:3000/api/admin/update-user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTEwYjRkMjdlNzRhNmQ4NTI0MzcwYiIsImlhdCI6MTc0MjgwNzI4MSwiZXhwIjoxNzQyODA3MzY3fQ.Rrbm9tCj0IdTyziXULCdF8RVIIZ4VLxx5W1nfO_AQCc
+
+{
+  "_id": "67e10e6cb4244c2576c29477",
+  "fullName": "nhan field 4",
+  "email": "field@gmail.com",
+  "phone": "12345673",
+  "isActive": false,
+  "isBanned": false,
+  "state": "Tỉnh Điện Biên",
+  "district": "Xã Mường Đăng",
+  "city": "Huyện Mường Ảng",
+  "createdAt": "2025-03-24T07:49:00.823Z",
+  "updatedAt": "2025-03-24T07:49:00.823Z",
+  "__v": 0,
+  "dateOfBirth": "2025-03-07T17:00:00.000Z",
+  "roleId": "67b8aeeae8901713e39fd73e"
+}
+
+### DELETE USER BY ID
+POST http://localhost:3000/api/admin/delete-user
+Content-Type: application/json
+
+{
+    "id": "67e0326e410e27dcebf2d45f"
+}
+
+
+### delete user wweb app
+POST http://localhost:3000/api/admin/remove-user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTAzMjZlNDEwZTI3ZGNlYmYyZDQ1ZiIsImlhdCI6MTc0MjgwMTEyNywiZXhwIjoxNzQyODAxMjEzfQ.yEuZm4HvfvpNymLC6tdyWo1kj1D5ccjDJcdQU3usex0
+
+{"id": "67e02fdf9d9af117c7ed2f4d"}
+
+
+
+
+### create user wweb app
+POST http://localhost:3000/api/admin/create-user-web-app
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTAzMjZlNDEwZTI3ZGNlYmYyZDQ1ZiIsImlhdCI6MTc0Mjc1NjU1NywiZXhwIjoxNzQyNzU2NjQzfQ.qR3uuE2khIu7Are1L_NqHjca7rLTPe7tjXZ-uI0pOzI
+
+
+{
+    "fullName": "CHuyen gia Nhan",
+    "dateOfBirth": "2025-02-24T17:00:00.000Z",
+    "phone": "092430892434",
+    "email": "abc@gmail.com",
+    "password": "19112004",
+    "state": "Tỉnh Lào Cai",
+    "city": "Thành phố Lào Cai",
+    "district": "Phường Duyên Hải",
+    "role": "67b8aeeae8901713e39fd73d"
 }
 
 ### add predict
