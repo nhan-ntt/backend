@@ -6,8 +6,23 @@ import { hasRole } from "../middlewares/role.middleware.js";
 import responseUtils from "../utils/response-utils.js";
 const { success } = responseUtils;
 
-
 const api = Router();
+
+api.post("/report-bypass", async (req, res) => {
+    try {
+        const report = await ReportService.createReport({
+            report: {
+                ...req.body,
+                // userId: req.userInfo._id.toString(),
+            },
+        });
+        return res.json(success(report));
+    } catch (error) {
+        console.log("error", error);
+        return CommonError(req, error, res);
+    }
+});
+
 api.post("/report", authenticateToken, async (req, res) => {
     try {
         if (
@@ -16,7 +31,7 @@ api.post("/report", authenticateToken, async (req, res) => {
         ) {
             const report = await ReportService.createReport({
                 report: {
-                    ...req.body.data,
+                    ...req.body,
                     userId: req.userInfo._id.toString(),
                 },
             });
@@ -29,6 +44,7 @@ api.post("/report", authenticateToken, async (req, res) => {
         return CommonError(req, error, res);
     }
 });
+
 api.post("/report/update-report", authenticateToken, async (req, res) => {
     try {
         if (
@@ -36,7 +52,7 @@ api.post("/report/update-report", authenticateToken, async (req, res) => {
             req.userInfo.role.role != "user"
         ) {
             const report = await ReportService.updateReport({
-                ...req.body.data,
+                ...req.body,
                 userId: req.userInfo._id,
             });
             return res.json(success(report));
@@ -55,7 +71,7 @@ api.post("/report/remove-report", authenticateToken, async (req, res) => {
             req.userInfo.role.role != "user"
         ) {
             const report = await ReportService.removeReport({
-                ...req.body.data,
+                ...req.body,
             });
             return res.json(success(report));
         } else {
@@ -73,7 +89,7 @@ api.post("/report/get-report-by-id", authenticateToken, async (req, res) => {
             req.userInfo.role.role != "user"
         ) {
             const report = await ReportService.getReportById({
-                ...req.body.data,
+                ...req.body,
             });
             return res.json(success(report));
         } else {
@@ -91,7 +107,7 @@ api.post("/report/get-report", authenticateToken, async (req, res) => {
             req.userInfo.role.role != "user"
         ) {
             const report = await ReportService.getReports({
-                ...req.body.data,
+                ...req.body,
             });
             return res.json(success(report));
         } else {

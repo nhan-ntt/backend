@@ -36,6 +36,22 @@ router.post("/get-user", authenticateToken, async (req, res) => {
     }
 });
 
+
+router.post("/web-app/get-user", authenticateToken, async (req, res) => {
+    try {
+        if (
+            req.userInfo.role.role != "admin" &&
+            req.userInfo.role.role != "user"
+        ) {
+            const user = await adminService.getUserMobile({ ...req.body });
+            return res.json(success(user));
+        }
+    } catch (error) {
+        console.log("error", error);
+        return CommonError(req, error, res);
+    }
+});
+
 router.post("/create-user-web-app", authenticateToken, async (req, res) => {
     try {
         if (req.userInfo.role.role == "admin") {

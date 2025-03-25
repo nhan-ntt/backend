@@ -19,15 +19,13 @@ const getAllUsers = async ({ paginationProps, queryProps }) => {
 
     const sortField = paginationProps?.sortBy || defaultSortField;
     const sortDirection = paginationProps?.sortType === "asc" ? 1 : -1;
-    
-    const sortOption = { [sortField]: sortDirection };
 
+    const sortOption = { [sortField]: sortDirection };
 
     const { page, limit } = paginationOption;
     const skipOptions = limit * (page - 1);
 
     console.log("Processing request with:", { paginationProps, queryProps });
-
 
     if (roles) {
         let roleIds = roles.map((role) => role._id);
@@ -39,6 +37,7 @@ const getAllUsers = async ({ paginationProps, queryProps }) => {
             },
             ...queryPropsFormat,
         ];
+
         let currentPage = [
             { $skip: skipOptions },
             { $limit: limit },
@@ -60,7 +59,7 @@ const getAllUsers = async ({ paginationProps, queryProps }) => {
         //         }
         //     });
         // }
-        
+
         let users = await User.aggregate([...aggr, ...currentPage]);
 
         if (users && users.length > 0) {
@@ -84,38 +83,25 @@ const getAllUsers = async ({ paginationProps, queryProps }) => {
     }
 };
 
-
 const createUserWebApp = async (user) => {
-    if ( true
-        // user.fullName &&
-        // user.dateOfBirth &&
-        // user.phone &&
-        // user.email &&
-        // user.roleId
-    ) {
-        let userInDb = await User.find({
-            email: user.email,
-        });
-        if (userInDb && userInDb?.length > 0) {
-            throw new Error("USER.POST.USER_EXIST");
-        } else {
-            let newUser = new User({
-                ...user,
-                fullName: user.fullName,
-                password: bcrypt.hashSync(user.password, 8),
-
-                dateOfBirth: user.dateOfBirth,
-                phone: user.phone,
-
-            });
-            let userCreated = await newUser.save();
-            return userCreated;
-        }
+    let userInDb = await User.find({
+        email: user.email,
+    });
+    if (userInDb && userInDb?.length > 0) {
+        throw new Error("USER.POST.USER_EXIST");
     } else {
-        throw new Error("USER.POST.INVALID_PARAMS");
+        let newUser = new User({
+            ...user,
+            fullName: user.fullName,
+            password: bcrypt.hashSync(user.password, 8),
+
+            dateOfBirth: user.dateOfBirth,
+            phone: user.phone,
+        });
+        let userCreated = await newUser.save();
+        return userCreated;
     }
 };
-
 
 const createUser = async (req, res) => {
     // Save User to Database
@@ -164,29 +150,27 @@ const createUser = async (req, res) => {
     }
 };
 
-
 const deleteUser = async ({ id }) => {
     // Validate ID
     if (!id) {
         throw new Error("USER.POST.MISSING_ID");
     }
-    
+
     // Find user
     const user = await User.findById(id);
     console.log("User to be deleted:", user);
-    
+
     // Check if user exists
     if (!user) {
         throw new Error("USER.POST.NO_USER_FOUND");
     }
-    
+
     // Delete user
     await User.findByIdAndDelete(id);
     console.log(`User ${user.fullName} (${id}) deleted successfully`);
-    
+
     return user;
 };
-
 
 const updateUser = async (body) => {
     try {
@@ -202,7 +186,7 @@ const updateUser = async (body) => {
 
         // Prepare update data with fields from the request
         const updateData = {};
-        
+
         // Handle standard fields that might be updated
         if (body.fullName !== undefined) updateData.fullName = body.fullName;
         if (body.email !== undefined) updateData.email = body.email;
@@ -213,33 +197,32 @@ const updateUser = async (body) => {
         if (body.address !== undefined) updateData.address = body.address;
         if (body.isActive !== undefined) updateData.isActive = body.isActive;
         if (body.isBanned !== undefined) updateData.isBanned = body.isBanned;
-        if (body.dateOfBirth !== undefined) updateData.dateOfBirth = body.dateOfBirth;
-        
+        if (body.dateOfBirth !== undefined)
+            updateData.dateOfBirth = body.dateOfBirth;
+
         // Handle role update (could be an object with _id or a direct roleId)
         if (body.role && body.role._id) {
             updateData.role = body.role._id;
         } else if (body.roleId) {
             updateData.role = body.roleId;
         }
-        
+
         // Handle password update with hashing
         if (body.password) {
             updateData.password = bcrypt.hashSync(body.password, 8);
         }
-        
+
         console.log("Updating user with data:", updateData);
-        
+
         // Update the user and return the updated document
-        const updatedUser = await User.findByIdAndUpdate(
-            body._id,
-            updateData,
-            { new: true }
-        ).populate('role');
-        
+        const updatedUser = await User.findByIdAndUpdate(body._id, updateData, {
+            new: true,
+        }).populate("role");
+
         if (!updatedUser) {
             throw new Error("USER.UPDATE.FAILED");
         }
-        
+
         return updatedUser;
     } catch (error) {
         console.error("Error updating user:", error);
@@ -248,7 +231,75 @@ const updateUser = async (body) => {
     }
 };
 
-
+const getUserMobile = async ({ paginationProps, queryProps }) => {
+    try {
+        // Get users with role "user"
+        const role = await Role.find({ role: "user" });
+        if (!role || role.length === 0) {
+            return { data: [], total: 0 };
+        }
+        
+        const paginationOption = parsePaginationOption(paginationProps || {});
+        const queryPropsFormat = customQuery(queryProps || {});
+        
+        // Setup sorting
+        const defaultSortField = "createdAt";
+        const sortField = paginationProps?.sortBy || defaultSortField;
+        const sortDirection = paginationProps?.sortType === "asc" ? 1 : -1;
+        const sortOption = { [sortField]: sortDirection };
+        
+        // Setup pagination
+        const { page = 1, limit = 10 } = paginationOption;
+        const skipOptions = limit * (page - 1);
+        
+        // Create pipeline
+        const roleIds = role.map(r => r._id);
+        let pipeline = [
+            { $match: { role: { $in: roleIds } } },
+            ...queryPropsFormat
+        ];
+        
+        // Add name search if provided (use regex instead of text search)
+        if (queryProps?.fullName && queryProps.fullName.trim() !== "") {
+            pipeline.push({
+                $match: {
+                    fullName: { $regex: queryProps.fullName, $options: 'i' }
+                }
+            });
+        }
+        
+        // CORRECT ORDER: match then sort then paginate
+        const executionPipeline = [
+            ...pipeline,
+            { $sort: sortOption },
+            { $skip: skipOptions },
+            { $limit: limit }
+        ];
+        
+        // Execute query
+        const users = await User.aggregate(executionPipeline);
+        
+        if (users && users.length > 0) {
+            // Populate role info
+            await User.populate(users, {
+                path: "role",
+                select: { role: 1, name: 1 }
+            });
+            
+            // Get total count (safely)
+            const count = await User.aggregate([...pipeline, { $count: "id" }]);
+            return {
+                data: users,
+                total: count.length > 0 ? count[0].id : 0
+            };
+        }
+        
+        return { data: [], total: 0 };
+    } catch (error) {
+        console.error("Error in getUserMobile:", error);
+        throw error;
+    }
+};
 
 export default {
     getAllUsers,
@@ -256,5 +307,5 @@ export default {
     updateUser,
     deleteUser,
     createUserWebApp,
-
+    getUserMobile,
 };

@@ -51,6 +51,7 @@ export const LIST_PEST_LEVEL = [
         term: "adult",
     },
 ];
+
 export const LIST_PLANT = [
     {
         name: "Cây non",
@@ -72,6 +73,7 @@ export const LIST_PLANT = [
         value: "x",
     },
 ];
+
 export const WARNING_CLASSIFICATION = [
     {
         plant: "a",
@@ -221,18 +223,8 @@ export const getWarningLevel = (plant, pest) => {
 };
 
 const executePestCommand = async (location, date, age) => {
-    // let varCommand =
-    //     "cd ./utils/myFAWPredict && python3 main.py" +
-    //     " --mode lookup" +
-    //     " --location " +
-    //     location +
-    //     " --date " +
-    //     date +
-    //     " --age " +
-    //     age;
-
     let varCommand =
-        "cd ./utils/riceLeaffolder && python3 main.py" +
+        "cd ./utils/FAWPredict && python3 FAWPredict.py" +
         " --mode lookup" +
         " --location " +
         location +
@@ -240,6 +232,19 @@ const executePestCommand = async (location, date, age) => {
         date +
         " --age " +
         age;
+
+
+    console.log("command of pest", varCommand)
+
+    // let varCommand =
+    //     "cd ./utils/riceLeaffolder && python3 main.py" +
+    //     " --mode lookup" +
+    //     " --location " +
+    //     location +
+    //     " --date " +
+    //     date +
+    //     " --age " +
+    //     age;
 
     const execPromise = promisify(exec);
     const { stdout, stderr } = await execPromise(varCommand);
@@ -264,6 +269,7 @@ const executePestCommand = async (location, date, age) => {
     return pestCommandResult;
 };
 
+// execute PestCommand python script
 const getPestData = async (state, lastReport) => {
     // Convert state
     let normalizeState = state

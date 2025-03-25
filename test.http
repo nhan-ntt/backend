@@ -130,11 +130,16 @@ Content-Type: application/json
 
 {
     "key": "this is password",
-  "state": "Tỉnh Lào Cai",
-  "city": "Thành phố Lào Cai",
-  "district": "Phường Duyên Hải",
-  "timeStart": "2025-03-09T17:00:00.000Z"
+    "state": "Thành phố Hà Nội",
+    "city": "Huyện Đan Phượng",
+    "district": "Xã Tân Lập",
+    "timeStart": "2025-03-19T17:00:00.000Z",
+    "address": "hehe",
+    "lastTimeEnd": "2025-03-02T17:00:00.000Z",
+    "pestLevelId": "67bcaf2832262e79185a2783",
+    "userId": "67e1274f23f803f659e32328"
 }
+
 
 ### Step 2: Use the token to access admin/users
 GET http://localhost:3000/api/admin/users
@@ -176,4 +181,47 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDAwMzkzN
         "sortType": "desc"
     },
     "queryProps": {}
+}
+
+
+### CREATE REPORT 
+POST http://localhost:3000/api/report
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTEyNzRmMjNmODAzZjY1OWUzMjMyOCIsImlhdCI6MTc0MjgxMTA0NCwiZXhwIjoxNzQyODExMTMwfQ.g4xygxGgdNv9q_3Kef7P58iWrmbZ9gkOnxweQX2pXHQ
+
+{
+    "userId": "67e1274f23f803f659e32328",
+    "state": "Tỉnh Lào Cai",
+    "city": "Thành phố Lào Cai",
+    "district": "Phường Duyên Hải",
+    "timeEnd": "2025-02-17T17:00:00.000Z",
+    "pestLevel": 1,
+    "note": "khoong sao"
+}
+
+
+
+### GET REPORT
+POST http://localhost:3000/api/report/get-report
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTEyNzRmMjNmODAzZjY1OWUzMjMyOCIsImlhdCI6MTc0MjgxMjY5MSwiZXhwIjoxNzQyODEyNzc3fQ.3fvQrUSOXR5l9tMWD-dSRGn-aC2SHzeUgQmmRmawTsU
+
+{
+    "paginationProps": {
+        "page": 1,
+        "limit": 10,
+        "sortBy": "",
+        "sortType": "desc"
+    },
+    "queryProps": {}
+}
+
+
+### Step 1: Login to get token
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "expert@gmail.com",
+    "password": "19112004"
 }

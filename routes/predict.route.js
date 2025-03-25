@@ -16,7 +16,7 @@ api.post("/predict/get-predict", authenticateToken, async (req, res) => {
             req.userInfo.role.role == "manager"
         ) {
             const pestLevels = await PredictService.getPredictByQuery({
-                ...req.body.data,
+                ...req.body,
             });
             return res.json(success(pestLevels));
         } else {
@@ -34,7 +34,7 @@ api.post("/predict/end-predict", authenticateToken, async (req, res) => {
             req.userInfo.role.role == "manager"
         ) {
             const pestLevels = await PredictService.endPredict({
-                ...req.body.data,
+                ...req.body,
                 userId: req.userInfo._id,
             });
             return res.json(success(pestLevels));
@@ -53,7 +53,7 @@ api.post("/predict/remove-predict", authenticateToken, async (req, res) => {
             req.userInfo.role.role == "manager"
         ) {
             const predict = await PredictService.removePredict({
-                ...req.body.data,
+                ...req.body,
                 userId: req.userInfo._id,
             });
             return res.json(success(predict));
@@ -70,7 +70,7 @@ api.post("/predict/update-predict", authenticateToken, async (req, res) => {
             req.userInfo.role.role == "manager"
         ) {
             const predict = await PredictService.updatePredict({
-                ...req.body.data,
+                ...req.body,
                 userId: req.userInfo._id,
             });
             return res.json(success(predict));
@@ -84,7 +84,7 @@ api.post("/predict/get-predict-by-address", authenticateToken, async (req, res) 
     try {
         if (req.userInfo.role.role == "user") {
             const predict = await PredictService.getPredict({
-                ...req.body.data,
+                ...req.body,
                 userId: req.userInfo._id,
             });
             return res.json(success(predict));
@@ -111,11 +111,13 @@ api.post("/predict", authenticateToken, async (req, res) => {
         return CommonError(req, error, res);
     }
 });
+
+
 api.post("/predict-by-pass", async (req, res) => {
     try {
         if (req.body.key == "this is password") {
             const predict = await PredictService.createPredict({
-                ...req.body.data,
+                ...req.body,
             });
             return res.json(success(predict));
         }
@@ -124,6 +126,8 @@ api.post("/predict-by-pass", async (req, res) => {
         return CommonError(req, error, res);
     }
 });
+
+
 api.post("/predict/get-list-plant-stage", authenticateToken, async (req, res) => {
     try {
         if (
@@ -131,7 +135,7 @@ api.post("/predict/get-list-plant-stage", authenticateToken, async (req, res) =>
             req.userInfo.role.role == "manager"
         ) {
             const predict = await PredictService.getListPlantStage({
-                ...req.body.data,
+                ...req.body,
                 userId: req.userInfo._id,
             });
             return res.json(success(predict));

@@ -21,7 +21,7 @@ router.post('/user/get-address-info', async (req, res) => {
 
 router.post("/user/get-user-by-id", authenticateToken, async (req, res) => {
     try {
-        const user = await UserService.getUserById({ ...req.body.data });
+        const user = await UserService.getUserById({ ...req.body });
         return res.json(success({ user }));
     } catch (err) {
         console.log(err);

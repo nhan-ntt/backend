@@ -26,14 +26,14 @@ location = "vinhyen"
 cur_age = 8
 content_type = 'csv'
 base_url = 'https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/'
-api_key = '8ARZ8EHSN8UHAQXVX6KB8Q6XZ'
+api_key = '6PPSTB388F7H536HMUZRHXPS8'
 include = "days"
 end_date = str(datetime.date.today() + datetime.timedelta(14))
 # end_date = str('2020-12-01')
 unit_group = 'metric'
 
 open_weather_url = "https://pro.openweathermap.org/data/2.5/forecast/climate?"
-api_open_weather_key = "717e03e96e01e62cca5dd276405194bd"
+api_open_weather_key = "5b24e25f4c0ddc81a6c4f676995a4c85"
 forecast_data = None
 
 DEVELOPEMENT_STAGE = [

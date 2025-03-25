@@ -27,7 +27,7 @@ api.post("/pestLevel/get-pest-level", authenticateToken, async (req, res) => {
     try {
         if (req.userInfo.role.role != "user") {
             const pestLevels = await PestLevelService.getAllPestLevel({
-                ...req.body.data,
+                ...req.body,
             });
             return res.json(success(pestLevels));
         } else {
