@@ -145,7 +145,7 @@ class FAWPrediction():
 if __name__ == "__main__":
     # create_faw_table()
 
-    with open("data/walker.csv", newline="") as faw_file:
+    with open("data/walker_data.csv", newline="") as faw_file:
         reader = csv.reader(faw_file, delimiter=',')
         faw_table = [[int(x) for x in row] for row in reader][1:]
     

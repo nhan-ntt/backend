@@ -21,6 +21,7 @@ const createReport = async ({ report }) => {
             ...report,
             timeEnd: report.timeEnd ? new Date(report.timeEnd) : undefined,
             user: report.userId,
+            slug: report.slug,
         });
         let sReport = await reportModel.save();
 
@@ -53,9 +54,7 @@ const createReport = async ({ report }) => {
     }
 };
 
-// gap loi REPORT_POST_NO_REPORT_FOUND
 
-// {"_id":"67e1370f089274d38c3e77ca","user":{"_id":"67e1274f23f803f659e32328","fullName":"CHuyen gia Nhan"},"state":"Tỉnh Lào Cai","city":"Huyện Mường Khương","district":"Xã Tung Chung Phố","timeEnd":"2024-01-01T17:00:00.000Z","pestLevel":2,"createdAt":"2025-03-24T10:42:23.570Z","updatedAt":"2025-03-24T10:42:23.570Z"}
 const updateReport = async (report) => {
     let reportInDb = await Report.findById(report._id);
     console.log("reportInDb", reportInDb);
@@ -77,6 +76,7 @@ const updateReport = async (report) => {
                 city: sReport.city,
                 district: sReport.district,
                 isFinish: false,
+                slug: sReport.slug,
             });
 
             if (predictDb) {

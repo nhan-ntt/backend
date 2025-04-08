@@ -226,3 +226,28 @@ Content-Type: application/json
     "email": "expert@gmail.com",
     "password": "19112004"
 }
+
+
+### create default pest
+POST http://localhost:3000/api/pest/get-pest-by-slug
+Content-Type: application/json
+
+{
+    "key": "this is password",
+    "slug": "walker"
+}
+
+
+### create report
+POST http://localhost:3000/api/report
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjQwODZjYzkzMDU1ZTU5ZTA2OWNlMSIsImlhdCI6MTc0NDA4ODQzNCwiZXhwIjoxNzQ0MTc0ODM0fQ.ezXKCi_DMt3I6WPC98MygXEZV0mrkweTtmayKWBUsPI
+
+{
+    "state": "Tỉnh Điện Biên",
+    "city": "Huyện Điện Biên Đông",
+    "district": "Xã Na Son",
+    "pestLevel": 1,
+    "userId": "67f4086cc93055e59e069ce1",
+    "slug": "walker"
+}

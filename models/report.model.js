@@ -8,6 +8,10 @@ const ReportSchema = new Schema(
             ref: "User",
             require: true,
         },
+        slug: {
+            type: String,
+            require: true,
+        },
         state: {
             type: String,
         },

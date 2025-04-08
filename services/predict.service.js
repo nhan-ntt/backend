@@ -2,8 +2,9 @@ import PestLevel from "../models/pest-level.model.js";
 import Predict from "../models/predict.model.js";
 
 import {
-    LIST_PLANT,
-    LIST_PEST_LEVEL,
+    getListPestLevel,
+    getListPlant,
+    getWarningClassification,
     calculateEndTimeSeason,
     getWarningForecast,
 } from "../utils/pest-level.util.js";
@@ -14,8 +15,8 @@ import mongoose from "mongoose";
 
 const getPredictByQuery = async ({ paginationProps = {}, queryProps = {} }) => {
     try {
-        console.log("Query props:", queryProps);
-        console.log("Pagination props:", paginationProps);
+        // console.log("Query props:", queryProps);
+        // console.log("Pagination props:", paginationProps);
         
         // Parse pagination with safe defaults
         const paginationOption = parsePaginationOption(paginationProps);
@@ -156,13 +157,14 @@ const removePredict = async (predict) => {
 
 
 const createPredict = async (predict) => {
-    let { state, city, district, timeStart, pestLevelId, userId, lastTimeEnd } =
+    let { state, city, district, timeStart, pestLevelId, userId, lastTimeEnd, slug } =
         predict;
     if (state && city && district && timeStart && userId) {
         let predictDb = await Predict.findOne({
             state: state,
             city: city,
             district: district,
+            slug: slug,
             isFinish: false,
         });
         if (predictDb) {
@@ -194,15 +196,19 @@ const createPredict = async (predict) => {
                 code: forecastResult[0].warningLevel,
             });
 
+            const LIST_PEST_LEVEL = await getListPestLevel(slug);
             const pestStage = LIST_PEST_LEVEL.find(
                 (per) => per.value === forecastResult[0].pestLevel
             ).name;
+
+            const LIST_PLANT = await getListPlant(slug);
             const plantStage = LIST_PLANT.find(
                 (per) => per.value === forecastResult[0].plantLevel
             ).name;
 
             let newPredict = new Predict({
                 ...predict,
+
                 lastPestLevel: pestLevelId ? pestLevelId : null,
                 user: userId,
                 lastTimeEnd: lastTimeEnd ? new Date(lastTimeEnd) : null,
@@ -250,7 +256,7 @@ const endPredict = async (predict) => {
     }
 };
 const updatePredict = async (predict) => {
-    let { state, city, district, timeStart } = predict;
+    let { state, city, district, timeStart, slug } = predict;
 
     if (predict._id) {
         let predictInDb = await Predict.findById(predict._id);
@@ -289,9 +295,12 @@ const updatePredict = async (predict) => {
                     code: forecastResult[0].warningLevel,
                 });
 
+                const LIST_PEST_LEVEL = await getListPestLevel(slug);
                 const pestStage = LIST_PEST_LEVEL.find(
                     (per) => per.value === forecastResult[0].pestLevel
                 ).name;
+
+                const LIST_PLANT = await getListPlant(slug);
                 const plantStage = LIST_PLANT.find(
                     (per) => per.value === forecastResult[0].plantLevel
                 ).name;
@@ -321,16 +330,13 @@ const updatePredict = async (predict) => {
         throw new Error("PREDICT_MOBILE.UPDATE.INVALID_PARAMS");
     }
 };
-const getListPlantStage = () => {
-    return LIST_PLANT;
-};
+
 export default {
     getPredictByQuery,
     createPredict,
     getPredict,
     removePredict,
     updatePredict,
-    getListPlantStage,
     endPredict,
     
 };

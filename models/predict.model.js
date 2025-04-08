@@ -8,6 +8,10 @@ const PredictSchema = new Schema(
             ref: "User",
             require: true,
         },
+        pest: {
+            type: String,
+            require: true,
+        },
         state: {
             type: String,
         },

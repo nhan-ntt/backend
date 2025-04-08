@@ -14,6 +14,7 @@ import planRoutes from "./routes/plan.route.js";
 import pestLevelRoutes from "./routes/pest-level.route.js";
 import reportRoutes from "./routes/report.route.js";
 import userRoutes from "./routes/user.route.js";
+import pestRoutes from "./routes/pest.route.js";
 
 const app = express();
 app.use(express.json());
@@ -33,7 +34,8 @@ app.use("/api", predictRoutes);
 app.use("/api", planRoutes);
 app.use("/api", pestLevelRoutes);
 app.use("/api", reportRoutes);
-app.use("/api", userRoutes) 
+app.use("/api", userRoutes);
+app.use("/api", pestRoutes);
 
 app.get("/", (req, res) => {
     res.send("Hello World");
