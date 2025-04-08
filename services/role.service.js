@@ -2,7 +2,8 @@ import Role from "../models/role.model.js";
 
 
 const getRoles = async () => {
-    let roles = await Role.find({ role: { $nin: ["admin", "user"] } });
+    // let roles = await Role.find({ role: { $nin: ["admin", "user"] } });
+    let roles = await Role.find({ role: { $nin: ["admin"] } });
     if (roles) {
         return roles;
     }

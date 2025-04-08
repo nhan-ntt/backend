@@ -187,18 +187,19 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDAwMzkzN
 ### CREATE REPORT 
 POST http://localhost:3000/api/report
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTEyNzRmMjNmODAzZjY1OWUzMjMyOCIsImlhdCI6MTc0MjgxMTA0NCwiZXhwIjoxNzQyODExMTMwfQ.g4xygxGgdNv9q_3Kef7P58iWrmbZ9gkOnxweQX2pXHQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTEyNzRmMjNmODAzZjY1OWUzMjMyOCIsImlhdCI6MTc0Mjg5NDc0MCwiZXhwIjoxNzQyOTgxMTQwfQ.XWQJNLtbmGAkcmZBM2OGq2Iv0uL7HIUk5dOvBxI0sWI
 
-{
-    "userId": "67e1274f23f803f659e32328",
-    "state": "Tỉnh Lào Cai",
-    "city": "Thành phố Lào Cai",
-    "district": "Phường Duyên Hải",
-    "timeEnd": "2025-02-17T17:00:00.000Z",
-    "pestLevel": 1,
-    "note": "khoong sao"
-}
+# {
+#     "userId": "67e1274f23f803f659e32328",
+#     "state": "Tỉnh Lào Cai",
+#     "city": "Thành phố Lào Cai",
+#     "district": "Phường Duyên Hải",
+#     "timeEnd": "2025-02-17T17:00:00.000Z",
+#     "pestLevel": 1,
+#     "note": "khoong sao"
+# }
 
+{"state":"Tỉnh Lai Châu","city":"Huyện Mường Tè","district":"Xã Ka Lăng","timeEnd":"2025-03-05T17:00:00.000Z","pestLevel":8,"userId":"67e1274f23f803f659e32328"}
 
 
 ### GET REPORT

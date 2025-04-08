@@ -1,14 +1,27 @@
 todo: 
 
-<configure userID -> object /predict>
-- viết api cho report (cant add)
-- viết api cho plan (cant add)
-
+- tao branch moi
+- xem them sau thi can nhung thong tin gi, pestLevel, planLevel: xem trong giao trinh, ve an com roi bat dau lam: 2h den 5h
 - them giao dien chon sau (them con sau)
-- doc hieu cac service, core la tu python, xem no implement vao predict the nao
 
 - sau duc than lua hai cham (theo bai giang, tim look up)
 - tinh thanh pho la sort theo abc
-- hoan thien di, k dc co bug nua nha
 
+- ui thi tach rieng con tu dau, cho chon con sau sau khi login
 
+- ngoai mo rong theo tong tich on, du lieu thoi tiet 
+thi them tich hop tu iot (cam bien tu canh dong, thu tin hieu, gui tin hieu ve bo thu lien tuc)
+
+loc ra 1 ngay lay 1 lan thoi diem nao, dung so lieu de tinh du bao, // loai du lieu khac
+thu thap thong tin moi truong
+- co tinh toan cu the, tap trung vao doi tg day, thi co nen bien no thanh ??? nhieu con sau, nhieu loai du lieu
+co nghi la: clone xong thay cai loi thanh sau duc than tren lua, target vao con moi luon
+
+- ngoai san pham phan mem, 1 con 1 cay: reuse 
+suy nghi: lam teh nao de dung codebase: co nhieu phan chung nhau, thanh 2 ver/branch khac nhau
+
+- vi du xem them thong tin vien tham? tren app con sau keo cx co, duc than cx co
+
+1 code base nhung tao branch moi cho con moi va cay moi
+
+- hoan thien app sau keo (check srs cua nhom cu, action), tim du lieu sau duc than, tao branch tren cac prj hien tai

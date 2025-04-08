@@ -10,7 +10,7 @@ const getAllUsers = async ({ paginationProps, queryProps }) => {
     if (queryProps?.role) {
         roles = await Role.find({ role: queryProps.role });
     } else {
-        roles = await Role.find({ role: { $nin: ["admin", "user"] } });
+        roles = await Role.find({ role: { $nin: ["admin"] } });
     }
     const paginationOption = parsePaginationOption(paginationProps);
     let queryPropsFormat = customQuery(queryProps);

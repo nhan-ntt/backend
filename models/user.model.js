@@ -26,6 +26,9 @@ const userSchema = new mongoose.Schema(
             ref: "Role",
             required: true,
         },
+        dateOfBirth: {
+            type: Date,
+        },
         isActive: {
             type: Boolean,
             default: false,

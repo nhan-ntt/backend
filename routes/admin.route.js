@@ -39,9 +39,11 @@ router.post("/get-user", authenticateToken, async (req, res) => {
 
 router.post("/web-app/get-user", authenticateToken, async (req, res) => {
     try {
-        if (
-            req.userInfo.role.role != "admin" &&
-            req.userInfo.role.role != "user"
+        if (req.userInfo.role.role == "user") {
+            throw new Error("USER.PERMISSION_DENIED");
+        }
+        else if (
+            req.userInfo.role.role != "admin" 
         ) {
             const user = await adminService.getUserMobile({ ...req.body });
             return res.json(success(user));

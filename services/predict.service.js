@@ -139,7 +139,11 @@ const removePredict = async (predict) => {
             if (predictInDb.user.toString() != predict.userId.toString()) {
                 throw new Error("PREDICT_MOBILE.DELETE.NOT_OWNER");
             } else {
-                await predictInDb.remove();
+                // Replace the remove() call with one of these modern alternatives:
+                await Predict.findByIdAndDelete(predict._id);
+                // OR
+                // await predictInDb.deleteOne();
+                
                 return predictInDb;
             }
         } else {
@@ -328,4 +332,5 @@ export default {
     updatePredict,
     getListPlantStage,
     endPredict,
+    
 };

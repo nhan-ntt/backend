@@ -11,62 +11,85 @@ export const LIST_PEST_LEVEL = [
         term: "egg",
     },
     {
-        name: "Sâu non 1",
+        name: "Sâu non tuổi 1",
         value: 1,
         term: "instar_1",
     },
     {
-        name: "Sâu non 2",
+        name: "Sâu non tuổi 2",
         value: 2,
         term: "instar_2",
     },
     {
-        name: "Sâu non 3",
+        name: "Sâu non tuổi 3",
         value: 3,
         term: "instar_3",
     },
     {
-        name: "Sâu non 4",
+        name: "Sâu non tuổi 4",
         value: 4,
         term: "instar_4",
     },
     {
-        name: "Sâu non 5",
-        value: 5,
-        term: "instar_5",
-    },
-    {
-        name: "Sâu non 6",
-        value: 6,
-        term: "instar_6",
-    },
-    {
         name: "Nhộng",
-        value: 7,
-        term: "pupal",
+        value: 5,
+        term: "pupa",
     },
     {
         name: "Trưởng thành",
-        value: 8,
+        value: 6,
         term: "adult",
     },
 ];
 
+
+// export const LIST_PLANT = [
+//     {
+//         name: "Cây non",
+//         last: 42,
+//         value: "a",
+//     },
+//     {
+//         name: "Cây con",
+//         last: 42,
+//         value: "b",
+//     },
+//     {
+//         name: "Cây bắp",
+//         last: 42,
+//         value: "c",
+//     },
+//     {
+//         name: "Không xác định",
+//         value: "x",
+//     },
+// ];
+
 export const LIST_PLANT = [
     {
-        name: "Cây non",
-        last: 42,
+        name: "Gieo mạ",
+        last: 10, // khoảng 10 ngày
         value: "a",
     },
     {
-        name: "Cây con",
-        last: 42,
+        name: "Đẻ nhánh",
+        last: 30, // khoảng 30 ngày
         value: "b",
     },
     {
-        name: "Cây bắp",
-        last: 42,
+        name: "Làm đòng",
+        last: 15, // khoảng 15 ngày
         value: "c",
+    },
+    {
+        name: "Trổ bông",
+        last: 7, // khoảng 7 ngày
+        value: "d",
+    },
+    {
+        name: "Chín",
+        last: 30, // khoảng 30 ngày
+        value: "e",
     },
     {
         name: "Không xác định",
@@ -74,143 +97,190 @@ export const LIST_PLANT = [
     },
 ];
 
-export const WARNING_CLASSIFICATION = [
-    {
-        plant: "a",
-        pest: 0,
-        level: 1,
-    },
-    {
-        plant: "a",
-        pest: 1,
-        level: 2,
-    },
-    {
-        plant: "a",
-        pest: 2,
-        level: 2,
-    },
-    {
-        plant: "a",
-        pest: 3,
-        level: 2,
-    },
-    {
-        plant: "a",
-        pest: 4,
-        level: 3,
-    },
-    {
-        plant: "a",
-        pest: 5,
-        level: 3,
-    },
-    {
-        plant: "a",
-        pest: 6,
-        level: 3,
-    },
-    {
-        plant: "a",
-        pest: 7,
-        level: 1,
-    },
-    {
-        plant: "a",
-        pest: 8,
-        level: 1,
-    },
-    {
-        plant: "b",
-        pest: 0,
-        level: 1,
-    },
-    {
-        plant: "b",
-        pest: 1,
-        level: 2,
-    },
-    {
-        plant: "b",
-        pest: 2,
-        level: 2,
-    },
-    {
-        plant: "b",
-        pest: 3,
-        level: 2,
-    },
-    {
-        plant: "b",
-        pest: 4,
-        level: 3,
-    },
-    {
-        plant: "b",
-        pest: 5,
-        level: 3,
-    },
-    {
-        plant: "b",
-        pest: 6,
-        level: 3,
-    },
-    {
-        plant: "b",
-        pest: 7,
-        level: 1,
-    },
-    {
-        plant: "b",
-        pest: 8,
-        level: 1,
-    },
-    {
-        plant: "c",
-        pest: 0,
-        level: 1,
-    },
-    {
-        plant: "c",
-        pest: 1,
-        level: 1,
-    },
-    {
-        plant: "c",
-        pest: 2,
-        level: 1,
-    },
-    {
-        plant: "c",
-        pest: 3,
-        level: 1,
-    },
-    {
-        plant: "c",
-        pest: 4,
-        level: 1,
-    },
-    {
-        plant: "c",
-        pest: 5,
-        level: 1,
-    },
-    {
-        plant: "c",
-        pest: 6,
-        level: 1,
-    },
-    {
-        plant: "c",
-        pest: 7,
-        level: 1,
-    },
-    {
-        plant: "c",
-        pest: 8,
-        level: 1,
-    },
+const WARNING_CLASSIFICATION = [
+    // Giai đoạn Gieo mạ (a)
+    { plant: "a", pest: 0, level: 0 }, // egg
+    { plant: "a", pest: 1, level: 0 }, // instar_1
+    { plant: "a", pest: 2, level: 0 }, // instar_2
+    { plant: "a", pest: 3, level: 0 }, // instar_3
+    { plant: "a", pest: 4, level: 0 }, // instar_4
+    { plant: "a", pest: 5, level: 0 }, // pupa
+    { plant: "a", pest: 6, level: 0 }, // adult
+
+    // Giai đoạn Đẻ nhánh (b)
+    { plant: "b", pest: 0, level: 1 },
+    { plant: "b", pest: 1, level: 2 },
+    { plant: "b", pest: 2, level: 3 },
+    { plant: "b", pest: 3, level: 3 },
+    { plant: "b", pest: 4, level: 4 },
+    { plant: "b", pest: 5, level: 0 },
+    { plant: "b", pest: 6, level: 1 },
+
+    // Giai đoạn Làm đòng (c)
+    { plant: "c", pest: 0, level: 1 },
+    { plant: "c", pest: 1, level: 2 },
+    { plant: "c", pest: 2, level: 3 },
+    { plant: "c", pest: 3, level: 4 },
+    { plant: "c", pest: 4, level: 4 },
+    { plant: "c", pest: 5, level: 0 },
+    { plant: "c", pest: 6, level: 1 },
+
+    // Giai đoạn Trổ bông (d)
+    { plant: "d", pest: 0, level: 1 },
+    { plant: "d", pest: 1, level: 2 },
+    { plant: "d", pest: 2, level: 3 },
+    { plant: "d", pest: 3, level: 4 },
+    { plant: "d", pest: 4, level: 4 },
+    { plant: "d", pest: 5, level: 0 },
+    { plant: "d", pest: 6, level: 2 },
+
+    // Giai đoạn Chín (e)
+    { plant: "e", pest: 0, level: 0 },
+    { plant: "e", pest: 1, level: 1 },
+    { plant: "e", pest: 2, level: 2 },
+    { plant: "e", pest: 3, level: 3 },
+    { plant: "e", pest: 4, level: 3 },
+    { plant: "e", pest: 5, level: 0 },
+    { plant: "e", pest: 6, level: 1 },
 ];
+
+// export const WARNING_CLASSIFICATION = [
+//     {
+//         plant: "a",
+//         pest: 0,
+//         level: 1,
+//     },
+//     {
+//         plant: "a",
+//         pest: 1,
+//         level: 2,
+//     },
+//     {
+//         plant: "a",
+//         pest: 2,
+//         level: 2,
+//     },
+//     {
+//         plant: "a",
+//         pest: 3,
+//         level: 2,
+//     },
+//     {
+//         plant: "a",
+//         pest: 4,
+//         level: 3,
+//     },
+//     {
+//         plant: "a",
+//         pest: 5,
+//         level: 3,
+//     },
+//     {
+//         plant: "a",
+//         pest: 6,
+//         level: 3,
+//     },
+//     {
+//         plant: "a",
+//         pest: 7,
+//         level: 1,
+//     },
+//     {
+//         plant: "a",
+//         pest: 8,
+//         level: 1,
+//     },
+//     {
+//         plant: "b",
+//         pest: 0,
+//         level: 1,
+//     },
+//     {
+//         plant: "b",
+//         pest: 1,
+//         level: 2,
+//     },
+//     {
+//         plant: "b",
+//         pest: 2,
+//         level: 2,
+//     },
+//     {
+//         plant: "b",
+//         pest: 3,
+//         level: 2,
+//     },
+//     {
+//         plant: "b",
+//         pest: 4,
+//         level: 3,
+//     },
+//     {
+//         plant: "b",
+//         pest: 5,
+//         level: 3,
+//     },
+//     {
+//         plant: "b",
+//         pest: 6,
+//         level: 3,
+//     },
+//     {
+//         plant: "b",
+//         pest: 7,
+//         level: 1,
+//     },
+//     {
+//         plant: "b",
+//         pest: 8,
+//         level: 1,
+//     },
+//     {
+//         plant: "c",
+//         pest: 0,
+//         level: 1,
+//     },
+//     {
+//         plant: "c",
+//         pest: 1,
+//         level: 1,
+//     },
+//     {
+//         plant: "c",
+//         pest: 2,
+//         level: 1,
+//     },
+//     {
+//         plant: "c",
+//         pest: 3,
+//         level: 1,
+//     },
+//     {
+//         plant: "c",
+//         pest: 4,
+//         level: 1,
+//     },
+//     {
+//         plant: "c",
+//         pest: 5,
+//         level: 1,
+//     },
+//     {
+//         plant: "c",
+//         pest: 6,
+//         level: 1,
+//     },
+//     {
+//         plant: "c",
+//         pest: 7,
+//         level: 1,
+//     },
+//     {
+//         plant: "c",
+//         pest: 8,
+//         level: 1,
+//     },
+// ];
 
 export const getWarningLevel = (plant, pest) => {
     if (plant === "x") return 0;
@@ -223,8 +293,20 @@ export const getWarningLevel = (plant, pest) => {
 };
 
 const executePestCommand = async (location, date, age) => {
+    // let varCommand =
+    //     "cd ./utils/walker/new && python3 main.py" +
+    //     " --mode lookup" +
+    //     " --location " +
+    //     location +
+    //     " --date " +
+    //     date +
+    //     " --age " +
+    //     age;
+
+
+
     let varCommand =
-        "cd ./utils/FAWPredict && python3 FAWPredict.py" +
+        "cd ./utils/walker/old && python3 FAWPredict.py" +
         " --mode lookup" +
         " --location " +
         location +
@@ -233,18 +315,8 @@ const executePestCommand = async (location, date, age) => {
         " --age " +
         age;
 
-
     console.log("command of pest", varCommand)
 
-    // let varCommand =
-    //     "cd ./utils/riceLeaffolder && python3 main.py" +
-    //     " --mode lookup" +
-    //     " --location " +
-    //     location +
-    //     " --date " +
-    //     date +
-    //     " --age " +
-    //     age;
 
     const execPromise = promisify(exec);
     const { stdout, stderr } = await execPromise(varCommand);
@@ -395,10 +467,22 @@ export const calculatePlantLevel = (startDate, curDate) => {
         milestone_2.getMonth(),
         milestone_2.getDate() + LIST_PLANT[2].last
     );
+    const milestone_4 = new Date(
+        milestone_3.getFullYear(),
+        milestone_3.getMonth(),
+        milestone_3.getDate() + LIST_PLANT[3].last
+    );
+    const milestone_5 = new Date(
+        milestone_4.getFullYear(),
+        milestone_4.getMonth(),
+        milestone_4.getDate() + LIST_PLANT[4].last
+    );
 
     if (startDate <= curDate && curDate < milestone_1) return "a";
     if (milestone_1 <= curDate && curDate < milestone_2) return "b";
     if (milestone_2 <= curDate && curDate < milestone_3) return "c";
+    if (milestone_3 <= curDate && curDate < milestone_4) return "d";
+    if (milestone_4 <= curDate && curDate < milestone_5) return "e";
 
     return "x";
 };
@@ -474,6 +558,8 @@ export const calculateEndTimeSeason = (startDate) => {
         startDate.getDate() +
             LIST_PLANT[0].last +
             LIST_PLANT[1].last +
-            LIST_PLANT[2].last
+            LIST_PLANT[2].last +
+            LIST_PLANT[3].last +
+            LIST_PLANT[4].last
     );
 };

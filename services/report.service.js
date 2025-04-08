@@ -3,7 +3,9 @@ import Predict from "../models/predict.model.js";
 import User from "../models/user.model.js";
 
 import { customQuery, parsePaginationOption } from "../utils/search.js";
-import updatePredict from "./predict.service.js";
+import predictService from "./predict.service.js";
+
+// import updatePredict from "./predict.service.js";
 
 const createReport = async ({ report }) => {
     if (
@@ -30,7 +32,7 @@ const createReport = async ({ report }) => {
         });
 
         if (predictDb) {
-            let sPredict = await updatePredict({
+            let sPredict = await predictService.updatePredict({
                 _id: predictDb._id,
                 state: predictDb.state,
                 city: predictDb.city,
