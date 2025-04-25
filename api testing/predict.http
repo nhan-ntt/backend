@@ -1,0 +1,73 @@
+### Login to get token
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "expert@gmail.com",
+    "password": "19112004"
+}
+
+
+### get predict by expert and manager
+POST http://localhost:3000/api/predict/get-predict
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjRmYjdkY2UxNWVkMmE3ZTkxOTYwYSIsImlhdCI6MTc0NTU5NTM1NywiZXhwIjoxNzQ1NjgxNzU3fQ.cI7OCMd9doybfC2Xhkvr1TNXCSTq0llYBlumWI1hMbc
+
+{
+    "paginationProps": {
+        "page": 1,
+        "limit": 10,
+        "sortBy": "",
+        "sortType": "desc"
+    },
+    "queryProps": {}
+}
+
+
+### end predict
+POST http://localhost:3000/api/predict/end-predict
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjRmYjdkY2UxNWVkMmE3ZTkxOTYwYSIsImlhdCI6MTc0NTU5NTM1NywiZXhwIjoxNzQ1NjgxNzU3fQ.cI7OCMd9doybfC2Xhkvr1TNXCSTq0llYBlumWI1hMbc
+
+{
+    "userId": "67f4fb7dce15ed2a7e91960a",
+    "_id": "67f5017788df351a13ce0ae0"
+}
+
+### /predict/get-predict-by-address
+POST http://localhost:3000/api/predict/get-predict-by-address
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGIxYWI3ZWU1NTFjMzliZjNiMjdiZSIsImlhdCI6MTc0NTU1ODkzMCwiZXhwIjoxNzQ1NjQ1MzMwfQ.AzmMzaEHns7SD-yL4hrnX87EyKjpQ3BcJunfkYqFA3Q
+
+{
+    "state": "Thành phố Hà Nội",
+    "city": "Huyện Đan Phượng",
+    "district": "Xã Tân Lập"
+}
+
+
+### create predict
+POST http://localhost:3000/api/predict
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGIxYWI3ZWU1NTFjMzliZjNiMjdiZSIsImlhdCI6MTc0NTU1ODkzMCwiZXhwIjoxNzQ1NjQ1MzMwfQ.AzmMzaEHns7SD-yL4hrnX87EyKjpQ3BcJunfkYqFA3Q
+
+{
+    "userId": "67f4fb7dce15ed2a7e91960a",
+    "state": "Tỉnh Lai Châu",
+    "city": "Huyện Mường Tè",
+    "district": "Xã Ka Lăng",
+    "lastTimeEnd": "2025-03-05T17:00:00.000Z",
+    "timeStart": "2025-03-19T17:00:00.000Z",
+    "address": "hehe",
+    "pestLevelId": "67bcaf2832262e79185a2783"
+}
+
+
+### update predict
+POST http://localhost:3000/api/predict/update-predict
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGIxYWI3ZWU1NTFjMzliZjNiMjdiZSIsImlhdCI6MTc0NTU1ODkzMCwiZXhwIjoxNzQ1NjQ1MzMwfQ.AzmMzaEHns7SD-yL4hrnX87EyKjpQ3BcJunfkYqFA3Q
+
+{
+    
+}

@@ -107,7 +107,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTAzMjZlN
 
 
 
-### create user wweb app
 POST http://localhost:3000/api/admin/create-user-web-app
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTAzMjZlNDEwZTI3ZGNlYmYyZDQ1ZiIsImlhdCI6MTc0Mjc1NjU1NywiZXhwIjoxNzQyNzU2NjQzfQ.qR3uuE2khIu7Are1L_NqHjca7rLTPe7tjXZ-uI0pOzI
@@ -252,6 +251,15 @@ Content-Type: application/json
     "password": "19112004"
 }
 
+
+### get user by id
+POST http://localhost:3000/api/user/get-user-by-id
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MDY4MTgzYjM3ZWVjZmNiMDNhZDJhNCIsImlhdCI6MTc0NTU2NTI5MywiZXhwIjoxNzQ1NjUxNjkzfQ.AqzixOLvCRuBCh9fWV7G9T-du_7XfUmt0QYAQZRsA-s
+
+{
+    "id": "68068183b37eecfcb03ad2a4"
+}
 ### plan api
 
 ### get plan by user id

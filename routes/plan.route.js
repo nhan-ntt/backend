@@ -25,6 +25,8 @@ api.post("/plan", authenticateToken, async (req, res) => {
         return CommonError(req, error, res);
     }
 });
+
+
 api.post("/plan/update-plan", authenticateToken, async (req, res) => {
     try {
         if (req.userInfo.role.role == "user") {
@@ -41,6 +43,8 @@ api.post("/plan/update-plan", authenticateToken, async (req, res) => {
         return CommonError(req, error, res);
     }
 });
+
+
 api.post("/plan/remove-plan", authenticateToken, async (req, res) => {
     try {
         if (req.userInfo.role.role == "user") {
@@ -57,6 +61,8 @@ api.post("/plan/remove-plan", authenticateToken, async (req, res) => {
         return CommonError(req, error, res);
     }
 });
+
+
 api.post("/plan/get-plan", authenticateToken, async (req, res) => {
     try {
         if (req.userInfo.role.role == "user") {

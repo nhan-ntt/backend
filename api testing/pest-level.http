@@ -1,0 +1,37 @@
+### get pest level (user dont have permission)
+POST http://localhost:3000/api/pestLevel/get-pest-level
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTEwYjRkMjdlNzRhNmQ4NTI0MzcwYiIsImlhdCI6MTc0NTU5MzI2NywiZXhwIjoxNzQ1Njc5NjY3fQ.hbFerMuZv7DqdFIKQM3HQWhU488EqyZcMnw7_oBgpz8
+
+{}
+
+
+### create default pest level (seed data)
+POST http://localhost:3000/api/pestLevel/create-default-pest-level
+Content-Type: application/json
+
+{
+    "key": "this is password"
+}
+
+
+### update pest level (admin role)
+POST http://localhost:3000/api/pestLevel/update-pest-level
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTEwYjRkMjdlNzRhNmQ4NTI0MzcwYiIsImlhdCI6MTc0NTU5MzI2NywiZXhwIjoxNzQ1Njc5NjY3fQ.hbFerMuZv7DqdFIKQM3HQWhU488EqyZcMnw7_oBgpz8
+
+{
+  "_id": "67bcaf2832262e79185a2783",
+  "url": "https://i.pinimg.com/736x/b6/a6/d5/b6a6d50de7eb36065b98ebd254d46cd5.jpg"
+}
+
+
+### delete pest level (admin role)
+
+
+Content-Type: application/json
+POST http://localhost:3000/api/pestLevel/delete-all
+
+{
+    "key": "this is password"
+}

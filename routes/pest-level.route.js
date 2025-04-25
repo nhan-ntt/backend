@@ -42,7 +42,7 @@ api.post("/pestLevel/update-pest-level", authenticateToken, async (req, res) => 
     try {
         if (req.userInfo.role.role == "admin") {
             const pestLevels = await PestLevelService.updateUrlPestLevel({
-                ...req.body.data,
+                ...req.body,
             });
             return res.json(success(pestLevels));
         } else {

@@ -1,0 +1,17 @@
+### get all roles
+GET http://localhost:3000/api/role/
+Content-Type: application/json
+
+{}
+
+### initialize role
+POST http://localhost:3000/api/role/initialize
+
+{}
+
+### get all roles with admin token
+POST http://localhost:3000/api/role/get-roles
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGI5Njc4ZjExY2YxMWZmYmU0ZGEyMyIsImlhdCI6MTc0NTU4OTk5NywiZXhwIjoxNzQ1Njc2Mzk3fQ.oSz4iW3USbj9u6VGW2LuVkzKxGQd2ju-uIdfNFNSpw4
+
+{}

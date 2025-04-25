@@ -8,7 +8,7 @@ const { success } = responseUtils;
 
 const router = express.Router();
 
-router.post("/create-account-admin", async (req, res) => {
+router.post("/admin/create-account-admin", async (req, res) => {
     try {
         if (req.body.key === "this is key to create admin") {
             return await adminService.createUser(req, res);
@@ -21,7 +21,7 @@ router.post("/create-account-admin", async (req, res) => {
     }
 });
 
-router.post("/get-user", authenticateToken, async (req, res) => {
+router.post("/admin/get-user", authenticateToken, async (req, res) => {
     try {
         if (req.userInfo.role.role == "admin") {
             const user = await adminService.getAllUsers({
@@ -37,6 +37,7 @@ router.post("/get-user", authenticateToken, async (req, res) => {
 });
 
 
+// only MANAGER and EXPERT can access this route
 router.post("/web-app/get-user", authenticateToken, async (req, res) => {
     try {
         if (req.userInfo.role.role == "user") {
@@ -47,6 +48,8 @@ router.post("/web-app/get-user", authenticateToken, async (req, res) => {
         ) {
             const user = await adminService.getUserMobile({ ...req.body });
             return res.json(success(user));
+        } else {
+            throw new Error("ADMIN.PERMISSION_DENIED");
         }
     } catch (error) {
         console.log("error", error);
@@ -54,7 +57,7 @@ router.post("/web-app/get-user", authenticateToken, async (req, res) => {
     }
 });
 
-router.post("/create-user-web-app", authenticateToken, async (req, res) => {
+router.post("/admin/create-user-web-app", authenticateToken, async (req, res) => {
     try {
         if (req.userInfo.role.role == "admin") {
             console.log("create web app", req.body);
@@ -71,7 +74,7 @@ router.post("/create-user-web-app", authenticateToken, async (req, res) => {
     }
 });
 
-router.post("/update-user", authenticateToken, async (req, res) => {
+router.post("/admin/update-user", authenticateToken, async (req, res) => {
     try {
         if (
             req.userInfo.role.role == "admin" ||
@@ -90,7 +93,7 @@ router.post("/update-user", authenticateToken, async (req, res) => {
     }
 });
 
-router.post("/update-user-bypass", async (req, res) => {
+router.post("/admin/update-user-bypass", async (req, res) => {
     try {
         // Log for debugging
         console.log("Update user bypass request:", req.body);
@@ -112,7 +115,7 @@ router.post("/update-user-bypass", async (req, res) => {
     }
 });
 
-router.post("/remove-user", authenticateToken, async (req, res) => {
+router.post("/admin/remove-user", authenticateToken, async (req, res) => {
     try {
         if (req.userInfo.role.role == "admin") {
             const user = await adminService.deleteUser({

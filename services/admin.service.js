@@ -25,7 +25,7 @@ const getAllUsers = async ({ paginationProps, queryProps }) => {
     const { page, limit } = paginationOption;
     const skipOptions = limit * (page - 1);
 
-    console.log("Processing request with:", { paginationProps, queryProps });
+    // console.log("Processing request with:", { paginationProps, queryProps });
 
     if (roles) {
         let roleIds = roles.map((role) => role._id);
@@ -189,7 +189,7 @@ const updateUser = async (body) => {
 
         // Handle standard fields that might be updated
         if (body.fullName !== undefined) updateData.fullName = body.fullName;
-        if (body.email !== undefined) updateData.email = body.email;
+        // if (body.email !== undefined) updateData.email = body.email;
         if (body.phone !== undefined) updateData.phone = body.phone;
         if (body.state !== undefined) updateData.state = body.state;
         if (body.district !== undefined) updateData.district = body.district;
@@ -275,6 +275,8 @@ const getUserMobile = async ({ paginationProps, queryProps }) => {
             { $skip: skipOptions },
             { $limit: limit }
         ];
+        console.log("Processing request with:", { paginationProps, queryProps });
+
         
         // Execute query
         const users = await User.aggregate(executionPipeline);

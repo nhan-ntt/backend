@@ -1,0 +1,108 @@
+### create admin
+POST http://localhost:3000/api/admin/create-account-admin
+Content-Type: application/json
+
+{
+  "key": "this is key to create admin",
+  "fullName": "Nhan Admin",
+  "email": "admin123@gmail.com",
+  "password": "19112004",
+  "role": "admin"
+}
+
+
+### Login to get token
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "admin@gmail.com",
+    "password": "19112004"
+}
+
+
+### Get all users (exclude admin) by admin role with pagination and filter
+POST http://localhost:3000/api/admin/get-user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGI5Njc4ZjExY2YxMWZmYmU0ZGEyMyIsImlhdCI6MTc0NTU4OTk5NywiZXhwIjoxNzQ1Njc2Mzk3fQ.oSz4iW3USbj9u6VGW2LuVkzKxGQd2ju-uIdfNFNSpw4
+
+{
+    "queryProps": {
+        "role": "expert",
+        "fullName": "",
+        "state": ""
+    },
+    "paginationProps": {
+        "sortBy": "createdAt",
+        "sortType": "desc",
+        "page": 1,
+        "limit": 10
+    }
+}
+
+
+### get all mobile users 
+POST http://localhost:3000/api/web-app/get-user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGI5Njc4ZjExY2YxMWZmYmU0ZGEyMyIsImlhdCI6MTc0NTU4OTk5NywiZXhwIjoxNzQ1Njc2Mzk3fQ.oSz4iW3USbj9u6VGW2LuVkzKxGQd2ju-uIdfNFNSpw4
+
+{
+    "queryProps": {
+        "role": "",
+        "fullName": "",
+        "state": ""
+    },
+    "paginationProps": {
+        "sortBy": "email",
+        "sortType": "desc",
+        "page": 1,
+        "limit": 10
+    }
+}
+
+### create user web app
+POST http://localhost:3000/api/admin/create-user-web-app
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGI5Njc4ZjExY2YxMWZmYmU0ZGEyMyIsImlhdCI6MTc0NTU4OTk5NywiZXhwIjoxNzQ1Njc2Mzk3fQ.oSz4iW3USbj9u6VGW2LuVkzKxGQd2ju-uIdfNFNSpw4
+
+{
+    "fullName": "CHuyen gia Nhan",
+    "dateOfBirth": "2025-02-24T17:00:00.000Z",
+    "phone": "092430892434",
+    "email": "abcd@gmail.com",
+    "password": "19112004",
+    "state": "Tỉnh Lào Cai",
+    "city": "Thành phố Lào Cai",
+    "district": "Phường Duyên Hải",
+    "role": "67b8aeeae8901713e39fd73d"
+}
+
+
+### admin update user, cant change email
+POST http://localhost:3000/api/admin/update-user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGI5Njc4ZjExY2YxMWZmYmU0ZGEyMyIsImlhdCI6MTc0NTU4OTk5NywiZXhwIjoxNzQ1Njc2Mzk3fQ.oSz4iW3USbj9u6VGW2LuVkzKxGQd2ju-uIdfNFNSpw4
+
+{
+  "_id": "680b9c63261d6b1aa1d93435",
+  "fullName": "Expert",
+  "phone": "12345673",
+  "isActive": false,
+  "isBanned": false,
+  "state": "Tỉnh Điện Biên",
+  "district": "Xã Mường Đăng",
+  "city": "Huyện Mường Ảng",
+  "createdAt": "2025-03-24T07:49:00.823Z",
+  "updatedAt": "2025-03-24T07:49:00.823Z",
+  "__v": 0,
+  "dateOfBirth": "2025-03-07T17:00:00.000Z",
+  "roleId": "67b8aeeae8901713e39fd73c"
+}
+
+
+### admin remove user
+POST http://localhost:3000/api/admin/remove-user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGI5Njc4ZjExY2YxMWZmYmU0ZGEyMyIsImlhdCI6MTc0NTU4OTk5NywiZXhwIjoxNzQ1Njc2Mzk3fQ.oSz4iW3USbj9u6VGW2LuVkzKxGQd2ju-uIdfNFNSpw4
+
+{"id": "680b9c63261d6b1aa1d93435"}

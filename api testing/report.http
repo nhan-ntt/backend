@@ -1,0 +1,73 @@
+### Login to get token
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "expert@gmail.com",
+    "password": "19112004"
+}
+
+### CREATE REPORT by manager and expert
+POST http://localhost:3000/api/report
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjRmYjdkY2UxNWVkMmE3ZTkxOTYwYSIsImlhdCI6MTc0NTU5NTM1NywiZXhwIjoxNzQ1NjgxNzU3fQ.cI7OCMd9doybfC2Xhkvr1TNXCSTq0llYBlumWI1hMbc
+
+{
+    "state": "Tỉnh Lai Châu",
+    "city": "Huyện Mường Tè",
+    "district": "Xã Ka Lăng",
+    "timeEnd": "2025-03-05T17:00:00.000Z",
+    "pestLevel": 8,
+    "userId": "67e1274f23f803f659e32328"
+}
+
+
+### GET REPORT
+POST http://localhost:3000/api/report/get-report
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjRmYjdkY2UxNWVkMmE3ZTkxOTYwYSIsImlhdCI6MTc0NTU5NTM1NywiZXhwIjoxNzQ1NjgxNzU3fQ.cI7OCMd9doybfC2Xhkvr1TNXCSTq0llYBlumWI1hMbc
+
+{
+    "paginationProps": {
+        "page": 1,
+        "limit": 10,
+        "sortBy": "",
+        "sortType": "desc"
+    },
+    "queryProps": {}
+}
+
+### GET REPORT BY ID
+POST http://localhost:3000/api/report/get-report-by-id
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjRmYjdkY2UxNWVkMmE3ZTkxOTYwYSIsImlhdCI6MTc0NTU5NTM1NywiZXhwIjoxNzQ1NjgxNzU3fQ.cI7OCMd9doybfC2Xhkvr1TNXCSTq0llYBlumWI1hMbc
+
+{
+    "reportId": "680bac3f7d95f9514883267a"
+}
+
+
+### remove report (in fe, only creator can delete)
+POST http://localhost:3000/api/report/remove-report
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjRmYjdkY2UxNWVkMmE3ZTkxOTYwYSIsImlhdCI6MTc0NTU5NTM1NywiZXhwIjoxNzQ1NjgxNzU3fQ.cI7OCMd9doybfC2Xhkvr1TNXCSTq0llYBlumWI1hMbc
+
+{
+    "reportId": "680bac3f7d95f9514883267a"
+}
+
+
+### update report (in fe, only creator can edit)
+POST http://localhost:3000/api/report/update-report
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZjRmYjdkY2UxNWVkMmE3ZTkxOTYwYSIsImlhdCI6MTc0NTU5NTM1NywiZXhwIjoxNzQ1NjgxNzU3fQ.cI7OCMd9doybfC2Xhkvr1TNXCSTq0llYBlumWI1hMbc
+
+{
+    "_id": "680bae5b7d95f951488326aa",
+    "state": "Tỉnh Lai Châu",
+    "city": "Huyện Mường Tè",
+    "district": "Xã Ka Lăng",
+    "timeEnd": "2025-03-05T17:00:00.000Z",
+    "pestLevel": 3,
+    "userId": "67e1274f23f803f659e32328"
+}

@@ -11,9 +11,9 @@ router.use((req, res, next) => {
     next();
 });
 
-router.post("/register", authService.register);
+router.post("/auth/register", authService.register);
 
-router.post("/login", authService.login);
+router.post("/auth/login", authService.login);
 
 
 export default router;

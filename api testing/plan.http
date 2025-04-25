@@ -1,0 +1,56 @@
+### Login to get token
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "huhuhuhu@gmail.com",
+    "password": "huhuhuhu"
+}
+
+
+### create plan
+POST http://localhost:3000/api/plan
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGJhMjQ3YTNkNTgyZjgyODcxMGYxZSIsImlhdCI6MTc0NTU5NDg2OCwiZXhwIjoxNzQ1NjgxMjY4fQ.oGeMoAUy8SUiZclNk8IDBVXtrm3TtTbszhzsqEqLRnk
+
+{
+    "userId": "680ba247a3d582f828710f1e",
+    "state": "Thành phố Hà Nội",
+    "city": "Huyện Hoài Đức",
+    "district": "Xã Đắc Sở"
+}
+
+
+
+### get plan by user id
+POST http://localhost:3000/api/plan/get-plan
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGJhMjQ3YTNkNTgyZjgyODcxMGYxZSIsImlhdCI6MTc0NTU5NDg2OCwiZXhwIjoxNzQ1NjgxMjY4fQ.oGeMoAUy8SUiZclNk8IDBVXtrm3TtTbszhzsqEqLRnk
+
+{
+    "userId": "680ba247a3d582f828710f1e"
+}
+
+### update plan
+POST http://localhost:3000/api/plan/update-plan
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGJhMjQ3YTNkNTgyZjgyODcxMGYxZSIsImlhdCI6MTc0NTU5NDg2OCwiZXhwIjoxNzQ1NjgxMjY4fQ.oGeMoAUy8SUiZclNk8IDBVXtrm3TtTbszhzsqEqLRnk
+
+{
+    "_id": "680baa0bc2fddf3db3516aeb",
+    "userId": "680ba247a3d582f828710f1e",
+    "state": "Thành phố Hà Nội",
+    "city": "Huyện Đan Phượng",
+    "district": "Xã Tân Lập"
+}
+
+
+### remove plan
+POST http://localhost:3000/api/plan/remove-plan
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGJhMjQ3YTNkNTgyZjgyODcxMGYxZSIsImlhdCI6MTc0NTU5NDg2OCwiZXhwIjoxNzQ1NjgxMjY4fQ.oGeMoAUy8SUiZclNk8IDBVXtrm3TtTbszhzsqEqLRnk
+
+{
+    "_id": "680baac07d95f95148832666",
+    "userId": "680ba247a3d582f828710f1e"
+}

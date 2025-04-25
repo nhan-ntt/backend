@@ -27,8 +27,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use("/api/role", roleRoutes);
-app.use("/api/admin", adminRoutes);
-app.use("/api/auth", authRoutes);
+app.use("/api", adminRoutes);
+app.use("/api", authRoutes);
 app.use("/api", predictRoutes);
 app.use("/api", planRoutes);
 app.use("/api", pestLevelRoutes);
@@ -39,7 +39,6 @@ app.get("/", (req, res) => {
     res.send("Hello World");
 });
 
-// swaggerDocs(app); // Initialize Swagger
 
 app.listen(PORT, () => {
     connectDB();
