@@ -161,10 +161,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3Y2YzYmM4Y
 ### Step 3: Use the token to access admin/users
 POST http://localhost:3000/api/user/get-address-info
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MDY4MTgzYjM3ZWVjZmNiMDNhZDJhNCIsImlhdCI6MTc0NTU1MjYzOCwiZXhwIjoxNzQ1NjM5MDM4fQ.GPuZr068A7ej02N9_gDb-vZi8m5tX-y3B_O4ivNbLkY
 
 { 
     "type": "district", 
     "parentCode": "180"
+}
+
+
+### Step 1: Login to get token
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "user@gmail.com",
+    "password": "19112004"
 }
 
 

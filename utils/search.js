@@ -1,6 +1,6 @@
 import moment from "moment";
 
-import URLParameter from "./URL-parameter.json" assert { type: "json" };
+import URLParameter from "./URL-parameter.json" with { type: "json" };
 
 const {
     SEARCH_OPTION_DEFAULT_LIMIT,

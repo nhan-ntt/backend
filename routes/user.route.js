@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { authenticateToken } from '../middlewares/auth.middleware.js';
 import { hasRole } from '../middlewares/role.middleware.js';
 import UserService from '../services/user.service.js';
+import CommonError from "../utils/error.js";
 import responseUtils from "../utils/response-utils.js";
 const { success } = responseUtils;
 
