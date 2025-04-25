@@ -13,7 +13,7 @@ api.post("/plan", authenticateToken, async (req, res) => {
     try {
         if (req.userInfo.role.role == "user") {
             const plan = await PlanService.createPlan({
-                ...req.body.data,
+                ...req.body,
                 userId: req.userInfo._id,
             });
             return res.json(success(plan));
@@ -29,7 +29,7 @@ api.post("/plan/update-plan", authenticateToken, async (req, res) => {
     try {
         if (req.userInfo.role.role == "user") {
             const plan = await PlanService.updatePlan({
-                ...req.body.data,
+                ...req.body,
                 userId: req.userInfo._id,
             });
             return res.json(success(plan));
@@ -45,7 +45,7 @@ api.post("/plan/remove-plan", authenticateToken, async (req, res) => {
     try {
         if (req.userInfo.role.role == "user") {
             const plan = await PlanService.removePlan({
-                ...req.body.data,
+                ...req.body,
                 userId: req.userInfo._id,
             });
             return res.json(success(plan));
@@ -61,7 +61,7 @@ api.post("/plan/get-plan", authenticateToken, async (req, res) => {
     try {
         if (req.userInfo.role.role == "user") {
             const plan = await PlanService.getPlan({
-                ...req.body.data,
+                ...req.body,
                 userId: req.userInfo._id,
             });
             return res.json(success(plan));

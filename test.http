@@ -15,11 +15,12 @@ Content-Type: application/json
 POST http://localhost:3000/api/auth/register
 Content-Type: application/json
 
+
 {
-  "fullName": "John Smith",
-  "email": "manager1@gmail.com",
-  "password": "19112004",
-  "role": "manager"
+  "fullName": "huhu",
+  "email": "huhu@gmail.com",
+  "password": "huhuhuhu",
+  "role": "user"
 }
 
 
@@ -161,11 +162,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3Y2YzYmM4Y
 ### Step 3: Use the token to access admin/users
 POST http://localhost:3000/api/user/get-address-info
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MDY4MTgzYjM3ZWVjZmNiMDNhZDJhNCIsImlhdCI6MTc0NTU1MjYzOCwiZXhwIjoxNzQ1NjM5MDM4fQ.GPuZr068A7ej02N9_gDb-vZi8m5tX-y3B_O4ivNbLkY
 
 { 
     "type": "district", 
-    "parentCode": "180"
+    "parentCode": "181"
 }
 
 
@@ -229,11 +229,72 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTEyNzRmM
 }
 
 
+
+
+
+### /predict/get-predict-by-address
+POST http://localhost:3000/api/predict/get-predict-by-address
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MGIxYWI3ZWU1NTFjMzliZjNiMjdiZSIsImlhdCI6MTc0NTU1ODkzMCwiZXhwIjoxNzQ1NjQ1MzMwfQ.AzmMzaEHns7SD-yL4hrnX87EyKjpQ3BcJunfkYqFA3Q
+
+{
+    "state": "Thành phố Hà Nội",
+    "city": "Huyện Đan Phượng",
+    "district": "Xã Tân Lập"
+}
+
 ### Step 1: Login to get token
 POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "expert@gmail.com",
+    "email": "user@gmail.com",
     "password": "19112004"
+}
+
+### plan api
+
+### get plan by user id
+POST http://localhost:3000/api/plan/get-plan
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MDY4MTgzYjM3ZWVjZmNiMDNhZDJhNCIsImlhdCI6MTc0NTU2NTI5MywiZXhwIjoxNzQ1NjUxNjkzfQ.AqzixOLvCRuBCh9fWV7G9T-du_7XfUmt0QYAQZRsA-s
+
+{
+    "userId": "68068183b37eecfcb03ad2a4"
+}
+
+### create plan
+POST http://localhost:3000/api/plan
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MDY4MTgzYjM3ZWVjZmNiMDNhZDJhNCIsImlhdCI6MTc0NTU2NTI5MywiZXhwIjoxNzQ1NjUxNjkzfQ.AqzixOLvCRuBCh9fWV7G9T-du_7XfUmt0QYAQZRsA-s
+
+{
+    "userId": "68068183b37eecfcb03ad2a4",
+    "state": "Thành phố Hà Nội",
+    "city": "Huyện Hoài Đức",
+    "district": "Xã Đắc Sở"
+}
+
+### update plan
+POST http://localhost:3000/api/plan/update-plan
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MDY4MTgzYjM3ZWVjZmNiMDNhZDJhNCIsImlhdCI6MTc0NTU2NTI5MywiZXhwIjoxNzQ1NjUxNjkzfQ.AqzixOLvCRuBCh9fWV7G9T-du_7XfUmt0QYAQZRsA-s
+
+{
+    "_id": "680b36e34d8ae717438d1d30",
+    "userId": "68068183b37eecfcb03ad2a4",
+    "state": "Thành phố Hà Nội",
+    "city": "Huyện Hoài Đức",
+    "district": "Xã Kim Chung"
+}
+
+
+### delete plan
+POST http://localhost:3000/api/plan/remove-plan
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MDY4MTgzYjM3ZWVjZmNiMDNhZDJhNCIsImlhdCI6MTc0NTU2NTI5MywiZXhwIjoxNzQ1NjUxNjkzfQ.AqzixOLvCRuBCh9fWV7G9T-du_7XfUmt0QYAQZRsA-s
+
+{
+    "_id": "680b36e34d8ae717438d1d30",
+    "userId": "68068183b37eecfcb03ad2a4"
 }

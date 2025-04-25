@@ -39,7 +39,7 @@ const removePlan = async (plan) => {
             if (planInDb.user.toString() != plan.userId.toString()) {
                 throw new Error("PLAN.DELETE.NOT_OWNER");
             } else {
-                await planInDb.remove();
+                await planInDb.deleteOne();
                 return planInDb;
             }
         } else {
