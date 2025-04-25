@@ -208,9 +208,9 @@ const updateUser = async (body) => {
         }
 
         // Handle password update with hashing
-        if (body.password) {
-            updateData.password = bcrypt.hashSync(body.password, 8);
-        }
+        // if (body.password) {
+        //     updateData.password = bcrypt.hashSync(body.password, 8);
+        // }
 
         console.log("Updating user with data:", updateData);
 

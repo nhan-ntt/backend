@@ -319,8 +319,7 @@ const executePestCommand = async (location, date, age) => {
 
 
     const execPromise = promisify(exec);
-    const { stdout, stderr } = await execPromise(varCommand);
-
+    const { stdout, stderr } = await execPromise(varCommand, { maxBuffer: 1024 * 1024 * 10 }); // 10MB
     let stdOutput = stdout.split(/\s+/);
 
     let pestCommandResult = stdOutput
